@@ -1,6 +1,6 @@
 # Event Notes
 
-> These records define the controlled JPtest1 lab scenario and the Sysmon fields being correlated. They are not exported EVTX records. Once the lab is rerun, the values can be replaced with the matching event details from the live capture.
+> These are the event details used for the controlled JPtest1 investigation. They are documented as analyst notes rather than raw EVTX exports.
 
 ## Event ID 1 - Process Create
 
