@@ -1,0 +1,15 @@
+{
+  "email_file": "case2-invoice-zip.eml",
+  "attachments": [
+    {
+      "filename": "Invoice_INV-88421.zip",
+      "content_type": "application/zip",
+      "size_bytes": 194,
+      "sha256": "c422f08c2dd655422a10c07a7fc2003fd289d97c9c31a08529f126ff61ad5465",
+      "md5": "d085fee01f400459915d1575bfac5dcc"
+    }
+  ],
+  "standalone_zip_sha256": "c422f08c2dd655422a10c07a7fc2003fd289d97c9c31a08529f126ff61ad5465",
+  "inner_script_sha256": "75e36eab35c99f782389aa577544849f27f5fa960c49c005152f8d0f6720bdae",
+  "inner_script_md5": "6b45fb571ec9c96ecc0599a5e40cfd60"
+}

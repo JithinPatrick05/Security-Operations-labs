@@ -1,0 +1,22 @@
+Subject: Document Ready for Signature
+From: DocuSign Notification <notification@docusign-secure.example>
+To: mmajeed@lab.local
+Return-Path: <notification@docusign-secure.example>
+Message-ID: <20260522.210017.case5-docusign-review@docusign-secure.example>
+Date: Fri, 22 May 2026 21:00:17 +0000
+Received: from mail.docusign-secure.example (198.51.100.88) by mx.lab.local
+ with ESMTPS id CASE5-DO; Fri, 22 May 2026 21:00:17 +0000
+Authentication-Results: mx.lab.local; spf=pass
+ smtp.mailfrom=docusign-secure.example; dkim=pass
+ header.d=docusign-secure.example; dmarc=pass
+ header.from=docusign-secure.example
+X-Mailer: SMTP
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+MIME-Version: 1.0
+
+You have received a secure document that requires your signature.
+Please review and sign the document before it expires.
+
+Review Document:
+https://docusign-secure.example/document/review?id=88421

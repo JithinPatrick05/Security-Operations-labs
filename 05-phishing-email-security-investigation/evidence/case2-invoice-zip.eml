@@ -1,0 +1,41 @@
+Subject: Invoice INV-88421 Past Due
+From: Billing Department <billing@secure-invoices-payments.example>
+To: mmajeed@lab.local
+Return-Path: <bounce@secure-invoices-payments.example>
+Message-ID:
+ <20260522.210017.case2-invoice-zip@secure-invoices-payments.example>
+Date: Fri, 22 May 2026 21:00:17 +0000
+Received: from mail.secure-invoices-payments.example (203.0.113.44) by
+ mx.lab.local with ESMTPS id CASE2-IN; Fri, 22 May 2026 21:00:17 +0000
+Authentication-Results: mx.lab.local; spf=pass
+ smtp.mailfrom=secure-invoices-payments.example; dkim=pass
+ header.d=secure-invoices-payments.example; dmarc=pass
+ header.from=secure-invoices-payments.example
+X-Mailer: SMTP
+MIME-Version: 1.0
+Content-Type: multipart/mixed; boundary="===============5491570450969721624=="
+
+--===============5491570450969721624==
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+
+Hello,
+
+Your invoice payment is overdue. Please review the attached invoice and submi=
+t payment today to avoid late fees.
+
+Regards,
+Billing Department
+
+--===============5491570450969721624==
+Content-Type: application/zip
+Content-Transfer-Encoding: base64
+Content-Disposition: attachment; filename="Invoice_INV-88421.zip"
+MIME-Version: 1.0
+
+UEsDBBQAAAAIAAiotlxYw5CtOAAAADYAAAAUAAAASW52b2ljZV9JTlYtODg0MjEuanMLD04uyiwo
+0XNNzsjXUPLMK8vPTE5V8PQL07WwMDEyVNBVKEiszE3NK1EoSs3NzEtJLVLStOYCAFBLAQIUAxQA
+AAAIAAiotlxYw5CtOAAAADYAAAAUAAAAAAAAAAAAAACkAQAAAABJbnZvaWNlX0lOVi04ODQyMS5q
+c1BLBQYAAAAAAQABAEIAAABqAAAAAAA=
+
+--===============5491570450969721624==--

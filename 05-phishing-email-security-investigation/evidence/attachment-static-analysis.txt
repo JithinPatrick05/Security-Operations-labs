@@ -1,0 +1,21 @@
+--- file ---
+Invoice_INV-88421.zip: Zip archive data, made by v2.0 UNIX, extract using at least v2.0, last modified May 22 2026 21:00:16, uncompressed size 54, method=deflate
+Invoice_INV-88421.js:  ASCII text
+--- sha256 ---
+c422f08c2dd655422a10c07a7fc2003fd289d97c9c31a08529f126ff61ad5465  Invoice_INV-88421.zip
+75e36eab35c99f782389aa577544849f27f5fa960c49c005152f8d0f6720bdae  Invoice_INV-88421.js
+--- sha1 ---
+019b4bc678db084438020610a89ddaaff75633d6  Invoice_INV-88421.zip
+120c305e5f2383d59a2aa159f95fd189230e9571  Invoice_INV-88421.js
+--- md5 ---
+d085fee01f400459915d1575bfac5dcc  Invoice_INV-88421.zip
+6b45fb571ec9c96ecc0599a5e40cfd60  Invoice_INV-88421.js
+--- archive listing ---
+Archive:  Invoice_INV-88421.zip
+  Length      Date    Time    Name
+---------  ---------- -----   ----
+       54  2026-05-22 21:00   Invoice_INV-88421.js
+---------                     -------
+       54                     1 file
+--- strings ---
+WScript.Echo("Invoice INV-88421 - payment reminder");

@@ -1,0 +1,24 @@
+Subject: Unusual Sign-In Attempt Blocked
+From: Security Alert <alerts@okta-verification.example>
+To: mmajeed@lab.local
+Return-Path: <alerts@okta-verification.example>
+Message-ID:
+ <20260522.210017.case4-okta-security-alert@okta-verification.example>
+Date: Fri, 22 May 2026 21:00:17 +0000
+Received: from mail.okta-verification.example (192.0.2.91) by mx.lab.local
+ with ESMTPS id CASE4-OK; Fri, 22 May 2026 21:00:17 +0000
+Authentication-Results: mx.lab.local; spf=pass
+ smtp.mailfrom=okta-verification.example; dkim=none; dmarc=pass
+ header.from=okta-verification.example
+X-Mailer: SMTP
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+MIME-Version: 1.0
+
+We detected an unusual sign-in attempt from a new location.
+To prevent account lockout, confirm your identity immediately.
+
+Review sign-in:
+https://okta-verification.example/security-check
+
+If this was not you, verify your account now to avoid temporary suspension.

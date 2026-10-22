@@ -1,0 +1,54 @@
+FILE: case1-microsoft365-password-expiration.eml
+sha256: 611161189f5d913b0ceb3fef0c75dd952425c13b6200c5deba6996883807156b
+size_bytes: 923
+subject: Urgent: Password Expiration Notice
+from: IT Support <support@micros0ft-security.example>
+reply_to: support@micros0ft-security.example
+return_path: <bounce@micros0ft-security.example>
+message_id: <20260522.210017.case1-microsoft365-password-expiration@micros0ft-security.example>
+received_ip: 198.51.100.24
+authentication_results: mx.lab.local; spf=fail smtp.mailfrom=micros0ft-security.example; dkim=none; dmarc=fail header.from=micros0ft-security.example
+
+FILE: case2-invoice-zip.eml
+sha256: 525ba4a691ad929e9594bc516bb706294074b16fd9b41c609db4f2dff37c53b0
+size_bytes: 1536
+subject: Invoice INV-88421 Past Due
+from: Billing Department <billing@secure-invoices-payments.example>
+reply_to: 
+return_path: <bounce@secure-invoices-payments.example>
+message_id: <20260522.210017.case2-invoice-zip@secure-invoices-payments.example>
+received_ip: 203.0.113.44
+authentication_results: mx.lab.local; spf=pass smtp.mailfrom=secure-invoices-payments.example; dkim=pass header.d=secure-invoices-payments.example; dmarc=pass header.from=secure-invoices-payments.example
+
+FILE: case3-ceo-bec.eml
+sha256: 82834891c9caa5b3bda07a698b568ec7c3ff59860e0e1c7b5a6e428627b5dec7
+size_bytes: 799
+subject: Quick favor needed
+from: CEO <ceo.company.office@gmail.com>
+reply_to: ceo.company.office@gmail.com
+return_path: <ceo.company.office@gmail.com>
+message_id: <20260522.210017.case3-ceo-bec@gmail.com>
+received_ip: 209.85.220.41
+authentication_results: mx.lab.local; spf=pass smtp.mailfrom=gmail.com; dkim=pass header.d=gmail.com; dmarc=pass header.from=gmail.com
+
+FILE: case4-okta-security-alert.eml
+sha256: 1c1d0d690eae8a8d3f970a0b2b78001acb138c7ec8d214c481814e991590cb43
+size_bytes: 945
+subject: Unusual Sign-In Attempt Blocked
+from: Security Alert <alerts@okta-verification.example>
+reply_to: 
+return_path: <alerts@okta-verification.example>
+message_id: <20260522.210017.case4-okta-security-alert@okta-verification.example>
+received_ip: 192.0.2.91
+authentication_results: mx.lab.local; spf=pass smtp.mailfrom=okta-verification.example; dkim=none; dmarc=pass header.from=okta-verification.example
+
+FILE: case5-docusign-review.eml
+sha256: 5d2686ba242ca20adff77b28b9b8a3b3c074bc2263cbefc49d351f89ddf2f833
+size_bytes: 911
+subject: Document Ready for Signature
+from: DocuSign Notification <notification@docusign-secure.example>
+reply_to: 
+return_path: <notification@docusign-secure.example>
+message_id: <20260522.210017.case5-docusign-review@docusign-secure.example>
+received_ip: 198.51.100.88
+authentication_results: mx.lab.local; spf=pass smtp.mailfrom=docusign-secure.example; dkim=pass header.d=docusign-secure.example; dmarc=pass header.from=docusign-secure.example
