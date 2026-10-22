@@ -100,6 +100,19 @@ Diploma of Information Technology — **Distinction**
 
 [View professional background](./docs/professional-background.md)
 
+
+## Broader Technical & Operational Experience
+
+My technical background developed across several roles before moving into enterprise network and service assurance work.
+
+- **DHL Facility - Apple Operations:** hands-on Apple device processing, approved iPhone/iPad erase and reset workflows, device condition separation, quality checks and controlled handling.
+- **Kmart Australia:** first-line troubleshooting of self-checkout and POS issues, transaction and payment fault identification, escalation of equipment/system problems, high-volume operations and privacy/compliance procedures.
+- **Datacom:** high-volume case handling, issue triage, documentation, structured escalation, service trend identification and accurate handover to specialist teams.
+- **JTS Transport and Logistics / StarTrack:** handheld scanning, digital tracking, proof-of-delivery records and chain-of-custody processes.
+- **Clever Builders:** first-line support for Windows workstations, printers, Microsoft applications, Wi-Fi/connectivity and user-access issues, with escalation to telecommunications and technology vendors.
+
+These roles built practical experience in troubleshooting, systems use, device handling, escalation, documentation, process discipline and customer-facing incident ownership before my move into enterprise Network Support and Technical Support.
+
 ## Current Focus
 
 I am currently developing deeper capability in:
