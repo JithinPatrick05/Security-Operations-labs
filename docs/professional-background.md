@@ -17,7 +17,7 @@ Worked in a 24/7 enterprise network and service assurance environment supporting
 - Provided first-line network and technical support across VMware SD-WAN, FortiGate, VPNs, routers, switches, modems, fixed wireless and 4G failover.
 - Used Wireshark, device telemetry and network diagnostic tools to investigate packet flows, connectivity faults, service degradation and abnormal behaviour.
 - Supported Windows, macOS and mobile users with Active Directory, Microsoft 365, MFA, VPN, access and software-related issues.
-- Reviewed network and security-relevant events using operational telemetry, packet captures and foundational SIEM/IDS/IPS exposure.
+- Reviewed network and security-relevant events using operational telemetry, packet captures, SIEM/IDS/IPS visibility and structured escalation workflows.
 - Coordinated escalations with engineering teams, offshore partners and carriers including Telstra, Optus, Superloop and NBN.
 - Acted as incident coordinator during high-severity outages, maintaining timelines, actions, risks and stakeholder communication.
 - Supported overnight mitigation of a widespread cyber-related operational event affecting shared customers.
@@ -30,7 +30,7 @@ VMware SD-WAN Orchestrator · FortiGate · ServiceNow · Wireshark · Active Dir
 
 ### Cybersecurity Relevance
 
-This was not a dedicated SOC analyst role. The relevant security experience came through first-line investigation, packet and telemetry analysis, firewall/VPN troubleshooting, IDS/IPS/SIEM exposure, incident escalation, major incident coordination and evidence/documentation practices.
+This role provided directly relevant security operations experience through first-line investigation, packet and telemetry analysis, firewall/VPN troubleshooting, SIEM/IDS/IPS visibility, incident escalation, major incident coordination and evidence/documentation practices.
 
 ---
 
