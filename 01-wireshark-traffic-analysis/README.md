@@ -352,6 +352,25 @@ Used to visualise packet activity over time.
 - Used Wireshark statistics to summarise endpoints, conversations and protocol distribution.
 - Demonstrated how packet-level evidence can support security investigation and network troubleshooting.
 
+## Simulated Suspicious Traffic Case Study
+
+A second analysis exercise was added to apply the same Wireshark methodology to suspicious network behaviour.
+
+[View the simulated suspicious traffic investigation](./synthetic-suspicious-traffic-scenario.md)
+
+This case covers:
+
+- TCP SYN scan identification
+- rapid multi-port reconnaissance
+- recurring DNS activity
+- periodic outbound TLS sessions
+- beacon-like timing analysis
+- evidence-versus-inference reasoning
+- MITRE ATT&CK mapping
+- investigation and escalation recommendations
+
+> The suspicious case uses synthetic lab values and is intentionally labelled as simulated. It is designed to demonstrate analysis methodology rather than claim a real compromise.
+
 ## Security Operations Relevance
 
 Packet analysis can support investigations involving:
