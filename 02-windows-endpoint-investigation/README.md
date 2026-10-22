@@ -1,6 +1,6 @@
 # Windows Endpoint Investigation - Sysmon
 
-> **Lab type:** Controlled endpoint investigation  
+> **Lab type:** Controlled endpoint investigation (in progress)  
 > **Host:** JPtest1  
 > **Operating system:** Windows 11  
 > **Data sources:** Sysmon, Windows Event Viewer  
@@ -14,7 +14,7 @@ This lab continues that investigation on the endpoint.
 
 Sysmon events showed that the traffic came from a PowerShell process launched from the user's desktop session. The same process queried the hostname seen in Wireshark, connected to the same remote IP over TCP/443 and wrote a small file under the Public profile. A registry Run value was also created for the same PowerShell command.
 
-The activity was generated in a controlled lab so I could practise correlating network and endpoint telemetry without using a live incident.
+The scenario below is the event chain I am reproducing in a controlled lab so I can practise correlating network and endpoint telemetry without using a live incident.
 
 ## Environment
 
@@ -270,7 +270,7 @@ The endpoint evidence supports the following conclusions:
 - Six network events matched the source ports and timing seen in Wireshark.
 - The same process modified a user Run key for persistence.
 
-Because this was a controlled exercise, I already knew the activity was generated for the lab. In an unknown case, the same combination would justify escalation and further endpoint review.
+Because this is a controlled exercise, the activity is intentionally generated for the lab. In an unknown case, the same combination would justify escalation and further endpoint review.
 
 ## MITRE ATT&CK mapping
 
