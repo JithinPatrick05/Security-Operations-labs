@@ -1,0 +1,67 @@
+// JPtest1 - Microsoft Sentinel / KQL investigation
+// Sysmon Operational events collected into WindowsEvent
+
+// 1. PowerShell process creation
+WindowsEvent
+| where Computer =~ "JPtest1"
+| where Channel == "Microsoft-Windows-Sysmon/Operational"
+| where EventID == 1
+| extend ProcessId = tostring(EventData.ProcessId),
+         ParentImage = tostring(EventData.ParentImage),
+         CommandLine = tostring(EventData.CommandLine),
+         User = tostring(EventData.User)
+| where tostring(EventData.Image) endswith @"\powershell.exe"
+| project TimeGenerated, Computer, EventID, ProcessId,
+          Image = tostring(EventData.Image),
+          ParentImage, CommandLine, User
+
+// 2. DNS query
+WindowsEvent
+| where Computer =~ "JPtest1"
+| where Channel == "Microsoft-Windows-Sysmon/Operational"
+| where EventID == 22
+| extend QueryName = tostring(EventData.QueryName),
+         QueryResults = tostring(EventData.QueryResults),
+         ProcessId = tostring(EventData.ProcessId),
+         Image = tostring(EventData.Image),
+         User = tostring(EventData.User)
+| where QueryName == "cdn-storage-sync.test"
+| project TimeGenerated, Computer, EventID, ProcessId,
+          Image, QueryName, QueryResults, User
+
+// 3. Repeated network connections
+WindowsEvent
+| where Computer =~ "JPtest1"
+| where Channel == "Microsoft-Windows-Sysmon/Operational"
+| where EventID == 3
+| where tostring(EventData.ProcessId) == "6124"
+| where tostring(EventData.DestinationIp) == "203.0.113.77"
+| where tostring(EventData.DestinationPort) == "443"
+| project TimeGenerated, Computer, EventID,
+          ProcessId = tostring(EventData.ProcessId),
+          Image = tostring(EventData.Image),
+          SourceIp = tostring(EventData.SourceIp),
+          SourcePort = tostring(EventData.SourcePort),
+          DestinationIp = tostring(EventData.DestinationIp),
+          DestinationPort = tostring(EventData.DestinationPort),
+          User = tostring(EventData.User)
+| order by TimeGenerated asc
+
+// 4. Connection summary
+WindowsEvent
+| where Computer =~ "JPtest1"
+| where Channel == "Microsoft-Windows-Sysmon/Operational"
+| where EventID == 3
+| extend ProcessId = tostring(EventData.ProcessId),
+         Image = tostring(EventData.Image),
+         SourcePort = tostring(EventData.SourcePort),
+         DestinationIp = tostring(EventData.DestinationIp),
+         DestinationPort = tostring(EventData.DestinationPort)
+| where ProcessId == "6124"
+| where DestinationIp == "203.0.113.77"
+| where DestinationPort == "443"
+| summarize ConnectionCount=count(),
+            FirstSeen=min(TimeGenerated),
+            LastSeen=max(TimeGenerated),
+            SourcePorts=make_set(SourcePort)
+  by Computer, ProcessId, Image, DestinationIp, DestinationPort
