@@ -132,7 +132,7 @@ I used a second controlled capture to investigate a Windows workstation named JP
 
 The case includes a short TCP service scan, DNS activity tied to later connections, repeated TLS sessions to one destination, timing analysis and follow-up endpoint checks.
 
-[Read the suspicious traffic investigation](./synthetic-suspicious-traffic-scenario.md)
+[Read the controlled suspicious traffic investigation](./controlled-suspicious-traffic-investigation.md)
 
 ## Skills covered
 
