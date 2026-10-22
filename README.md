@@ -1,6 +1,6 @@
 # Security Operations Labs
 
-Hands-on security investigations focused on network analysis, endpoint telemetry, detection engineering, incident response and threat intelligence.
+Hands on security investigations focused on network analysis, endpoint telemetry, detection engineering, incident response and threat intelligence.
 
 This repository documents practical exercises completed to strengthen security operations and investigation skills. Each project is written as a technical case study with the objective, environment, methodology, evidence, findings and lessons learned.
 
