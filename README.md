@@ -9,6 +9,7 @@ This repository documents practical exercises completed to strengthen security o
 | # | Project | Focus | Tools | Status |
 |---|---|---|---|---|
 | 01 | [Wireshark Traffic Analysis](./01-wireshark-traffic-analysis/) | Network traffic analysis and protocol investigation | Wireshark, Windows 11, Command Prompt | Completed |
+| 02 | [Windows Endpoint Investigation](./02-windows-endpoint-investigation/) | Sysmon event correlation and endpoint triage | Sysmon, Event Viewer, PowerShell | Simulated lab |
 
 ## Core Skills Demonstrated
 
@@ -20,6 +21,9 @@ This repository documents practical exercises completed to strengthen security o
 - Incident investigation fundamentals
 - Network troubleshooting
 - Evidence-based technical documentation
+- Windows endpoint telemetry
+- Sysmon event correlation
+- Process and persistence analysis
 
 ## Portfolio Approach
 
