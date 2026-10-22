@@ -1,129 +1,210 @@
-# Phishing Case Notes
+# Phishing Case Investigations
 
-All cases below were simulated for safe SOC investigation practice.
-
-## Case 1 - Microsoft 365 Password Expiration
+## Case 1 — Microsoft 365 Password Expiration
 
 **Subject:** Urgent: Password Expiration Notice  
-**Sender:** IT Support <support@micros0ft-security[.]com>  
-**URL:** hxxps://micros0ft-security-login[.]com/verify  
-**Attachment:** None  
+**Sender:** IT Support <support@micros0ft-security.example>  
+**Received IP:** 198.51.100.24  
 **Severity:** Medium  
-**Verdict:** Confirmed phishing / credential harvesting attempt
+**Verdict:** Phishing / credential harvesting
+
+### Header Review
+
+```text
+Reply-To: support@micros0ft-security.example
+Return-Path: <bounce@micros0ft-security.example>
+Message-ID domain: micros0ft-security.example
+
+SPF: fail
+DKIM: none
+DMARC: fail
+```
 
 ### Analysis
 
-The sender and URL use Microsoft-themed lookalike domains, including `micros0ft` with a zero in place of the letter "o". The message creates urgency by claiming the password expires today and threatens account suspension.
+The sender and linked domain used Microsoft-themed lookalike naming. The message created urgency by claiming the account would be suspended unless the user verified the password immediately.
 
-The likely objective is credential harvesting, potentially including MFA/session information if the user submits credentials.
+The authentication failures supported the suspicious assessment, but the decisive indicators were the lookalike domain, account-pressure language and credential-verification theme.
 
-### SOC Actions
+### Recommended Actions
 
-- Block sender domain and URL.
+- Block sender/domain and URL indicators.
 - Search for other recipients.
 - Quarantine matching messages.
-- Confirm whether the user clicked or entered credentials.
-- Reset password and revoke sessions if credentials were submitted.
-- Review identity sign-in activity.
+- Confirm whether the user clicked the link.
+- Reset credentials and revoke sessions if credentials were entered.
+- Review sign-in telemetry.
 
 ---
 
-## Case 2 - Past-Due Invoice ZIP
+## Case 2 — Past-Due Invoice ZIP
 
 **Subject:** Invoice INV-88421 Past Due  
-**Sender:** Billing Department <billing@secure-invoices-payments[.]com>  
-**Attachment:** Invoice_INV-88421.zip  
-**URL:** None  
+**Sender:** Billing Department <billing@secure-invoices-payments.example>  
+**Received IP:** 203.0.113.44  
 **Severity:** High  
-**Verdict:** Suspected phishing / possible malware delivery
+**Verdict:** Phishing / suspicious attachment delivery
+
+### Header Review
+
+```text
+Return-Path: <bounce@secure-invoices-payments.example>
+Message-ID domain: secure-invoices-payments.example
+
+SPF: pass
+DKIM: pass
+DMARC: pass
+```
+
+### Attachment Evidence
+
+```text
+Attachment: Invoice_INV-88421.zip
+MIME: application/zip
+Size: 194 bytes
+SHA-256: c422f08c2dd655422a10c07a7fc2003fd289d97c9c31a08529f126ff61ad5465
+MD5: d085fee01f400459915d1575bfac5dcc
+```
+
+The hash extracted from the `.eml` attachment matched the standalone evidence file.
+
+Archive listing:
+
+```text
+Invoice_INV-88421.js
+54 bytes
+```
+
+Inner file:
+
+```text
+SHA-256: 75e36eab35c99f782389aa577544849f27f5fa960c49c005152f8d0f6720bdae
+MD5: 6b45fb571ec9c96ecc0599a5e40cfd60
+File type: ASCII text
+```
+
+Strings:
+
+```text
+WScript.Echo("Invoice INV-88421 - payment reminder");
+```
 
 ### Analysis
 
-The sender uses a generic invoice/payment-themed domain rather than a known vendor domain. The message uses financial urgency and directs the user toward a ZIP attachment.
+The message used an invoice/payment theme, financial urgency and a compressed script attachment.
 
-No attachment hash was present in the source scenario, so the file was not claimed as confirmed malware.
+Email authentication passed, which demonstrated that SPF/DKIM/DMARC success alone is not enough to classify a message as legitimate.
 
-### SOC Actions
+The archive contained a JavaScript file, which is a high-risk attachment type. Static review did not identify network calls, process creation, file writes, obfuscation or credential-access behaviour in the script itself.
 
-- Instruct the user not to open the attachment.
-- Quarantine/remove the message.
-- Search for other recipients by sender, subject and attachment name.
-- Hash/sandbox the file in an approved environment if available.
-- Check endpoint telemetry for evidence of opening or execution.
-- Escalate to IR if execution occurred.
+### Recommended Actions
+
+- Quarantine the message and attachment.
+- Search for other recipients.
+- Block the sender/domain if the campaign is confirmed malicious.
+- Compare attachment hashes across mailboxes/endpoints.
+- Check endpoint telemetry for file extraction or script execution.
+- Escalate if execution or additional suspicious behaviour is found.
 
 ---
 
-## Case 3 - CEO / Executive Impersonation
+## Case 3 — CEO / Executive Impersonation
 
 **Subject:** Quick favor needed  
-**Sender:** CEO <ceo.company.office@gmail[.]com>  
-**URL:** None  
-**Attachment:** None  
+**Sender:** CEO <ceo.company.office@gmail.com>  
+**Received IP:** 209.85.220.41  
 **Severity:** Medium  
-**Verdict:** Business Email Compromise / executive impersonation attempt
+**Verdict:** Business Email Compromise / executive impersonation
+
+### Header Review
+
+```text
+Reply-To: ceo.company.office@gmail.com
+Return-Path: <ceo.company.office@gmail.com>
+Message-ID domain: gmail.com
+
+SPF: pass
+DKIM: pass
+DMARC: pass
+```
 
 ### Analysis
 
-The message claims to be from the CEO but originates from a Gmail address. It asks the recipient to reply quickly while stating the sender is unavailable to talk.
+The message passed authentication because it originated from a Gmail account. That did not establish that the sender was the company CEO.
 
-This is consistent with a BEC conversation starter where the financial or sensitive-data request may follow after the victim replies.
+The primary indicators were impersonation, urgency and the request to continue the conversation while the supposed executive was unavailable by phone. This matched a common BEC conversation-starter pattern.
 
-### SOC Actions
+### Recommended Actions
 
-- Quarantine/remove the email.
-- Search for other recipients and similar wording.
-- Block sender address where appropriate.
-- Ask whether the user replied or shared information.
-- Notify the real executive/security team if impersonation is confirmed.
-- Monitor for follow-up attempts.
+- Remove or quarantine the message.
+- Search for similar messages and recipients.
+- Warn the targeted user not to reply.
+- Confirm whether any information or money was sent.
+- Notify internal security and the impersonated executive where appropriate.
 
 ---
 
-## Case 4 - Fake Okta Security Alert
+## Case 4 — Fake Okta Security Alert
 
 **Subject:** Unusual Sign-In Attempt Blocked  
-**Sender:** Security Alert <alerts@okta-verification[.]com>  
-**URL:** hxxps://okta-verification[.]com/security-check  
+**Sender:** Security Alert <alerts@okta-verification.example>  
+**Received IP:** 192.0.2.91  
 **Severity:** Medium  
-**Verdict:** Confirmed phishing / credential harvesting
+**Verdict:** Phishing / credential harvesting
+
+### Header Review
+
+```text
+Return-Path: <alerts@okta-verification.example>
+
+SPF: pass
+DKIM: none
+DMARC: pass
+```
 
 ### Analysis
 
-The sender and URL use an Okta-themed lookalike domain. The message uses fear and urgency by claiming an unusual sign-in and threatening lockout/suspension.
+The domain was aligned enough to pass SPF/DMARC for itself, but it was not an authorised Okta domain. The message used a security-alert theme, urgency and account-lockout pressure to direct the user to an Okta-themed verification URL.
 
-The likely objective is credential or MFA/session-token theft through a fake verification workflow.
+### Recommended Actions
 
-### SOC Actions
-
-- Block sender domain and URL.
-- Search for additional recipients.
+- Block URL and sender-domain indicators.
+- Search for other recipients.
 - Quarantine matching messages.
-- Ask whether the user clicked or entered credentials.
-- Reset credentials and revoke sessions if required.
-- Review identity-provider sign-in logs.
+- Confirm user interaction.
+- Reset credentials/revoke sessions if credentials were entered.
+- Review identity-provider logs.
 
 ---
 
-## Case 5 - Fake DocuSign Document Review
+## Case 5 — Fake DocuSign Document Review
 
 **Subject:** Document Ready for Signature  
-**Sender:** DocuSign Notification <notification@docusign-secure[.]net>  
-**URL:** hxxps://docusign-secure[.]net/document/review?id=88421  
+**Sender:** DocuSign Notification <notification@docusign-secure.example>  
+**Received IP:** 198.51.100.88  
 **Severity:** Medium  
-**Verdict:** Confirmed phishing / credential harvesting
+**Verdict:** Phishing / credential harvesting
+
+### Header Review
+
+```text
+Return-Path: <notification@docusign-secure.example>
+
+SPF: pass
+DKIM: pass
+DMARC: pass
+```
 
 ### Analysis
 
-The sender and destination use a DocuSign-themed lookalike domain rather than a normal DocuSign domain. The message attempts to borrow trust from a document-signing service and pressures the user to review/sign before expiry.
+The message authenticated successfully for the sender domain, but the domain itself was a DocuSign-themed lookalike rather than an authorised DocuSign domain.
 
-The use of HTTPS would not make the destination trustworthy.
+The body relied on trust in document-signing workflows and time pressure to drive the user to a review link.
 
-### SOC Actions
+### Recommended Actions
 
-- Block sender domain and URL.
+- Block sender/domain and URL indicators.
 - Search for other recipients.
-- Quarantine matching emails.
-- Confirm whether the user interacted with the link.
-- Reset credentials/revoke sessions if submitted.
-- Review sign-in logs for anomalous activity.
+- Quarantine matching messages.
+- Confirm whether users clicked or submitted credentials.
+- Review sign-in activity if interaction occurred.
