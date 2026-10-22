@@ -7,11 +7,11 @@ Sydney, Australia
 
 ## Professional Profile
 
-IT operations professional transitioning into dedicated cybersecurity and security operations roles, with two years of 24/7 enterprise Network Support, Technical Support and Service Assurance experience at Macquarie Technology Group.
+Cybersecurity and IT operations professional with two years of 24/7 enterprise Network Support, Technical Support and Service Assurance experience at Macquarie Technology Group, backed by hands-on security operations, incident investigation and blue-team project experience.
 
 My background combines incident triage, network troubleshooting, major incident coordination, service assurance and customer-facing technical support across a large enterprise environment supporting 7,000+ customer sites. I have worked with VMware SD-WAN, FortiGate, ServiceNow, Active Directory, Microsoft 365, VPN/MFA, Wireshark and Windows/Linux systems.
 
-I am now building deeper blue-team capability through hands-on work with Microsoft Sentinel, KQL, Sysmon, Windows event telemetry, packet analysis, incident investigation and MITRE ATT&CK based analysis.
+I have hands-on blue-team capability across Microsoft Sentinel, KQL, Sysmon, Windows event telemetry, packet analysis, phishing triage, IOC analysis, incident investigation, SOC documentation and MITRE ATT&CK based analysis. I continue to upskill through structured security operations labs, SC-200 preparation and deeper detection and incident-response work.
 
 ## Career Highlights
 
@@ -54,12 +54,12 @@ This progression demonstrates how packet-level evidence, endpoint events and SIE
 
 | Area | Technologies / Skills |
 |---|---|
-| Security Operations | Microsoft Sentinel, Microsoft Defender fundamentals, SIEM/EDR concepts, IDS/IPS, alert triage, incident investigation, MITRE ATT&CK |
-| Detection & Analysis | KQL, Sysmon, Windows Event Logs, Elastic/Kibana, log correlation, packet analysis, phishing triage, IOC analysis, threat hunting fundamentals, detection logic |
+| Security Operations | Microsoft Sentinel, Microsoft Defender, SIEM/EDR, IDS/IPS, alert triage, incident investigation, phishing triage, SOC documentation, MITRE ATT&CK |
+| Detection & Analysis | KQL, Sysmon, Windows Event Logs, Elastic/Kibana, log correlation, packet analysis, IOC analysis, threat hunting, detection logic |
 | Network Security | FortiGate, VMware SD-WAN, Wireshark, TCP/IP, DNS, DHCP, VPN, LAN/WAN, routing and switching |
 | Systems & Identity | Windows 10/11, Linux, Active Directory, Microsoft 365, MFA, RBAC, endpoint support |
 | IT Operations | ServiceNow ITSM, P1/P2 incident coordination, SLA management, RCA, escalation, technical documentation |
-| Scripting | PowerShell, Bash and Python fundamentals |
+| Scripting | PowerShell, Bash and Python |
 | Frameworks | MITRE ATT&CK, NIST CSF, CIS Controls and ISO 27001 awareness |
 
 ## Certifications
@@ -115,17 +115,22 @@ My technical background developed across several roles before moving into enterp
 
 These roles built practical experience in troubleshooting, systems use, device handling, escalation, documentation, process discipline and customer-facing incident ownership before my move into enterprise Network Support and Technical Support.
 
-## Current Focus
+## Security Capabilities & Ongoing Upskilling
 
-I am currently developing deeper capability in:
+I have hands-on capability in:
 
 - Microsoft Sentinel and KQL
-- Security monitoring and alert triage
+- Security monitoring, alert triage and incident investigation
 - Windows endpoint telemetry and Sysmon
-- Detection engineering fundamentals
-- Incident response and event correlation
+- Elastic/Kibana log analysis
+- Phishing triage and IOC analysis
+- SOC ticket writing, severity assessment, escalation and shift handoff
+- Network traffic analysis with Wireshark
+- Detection engineering and event correlation
 - Threat hunting methodology
-- Microsoft SC-200 preparation
+- MITRE ATT&CK based analysis
+
+I continue to upskill through Microsoft SC-200 preparation, additional blue-team investigations and deeper detection and incident-response practice.
 
 ## Portfolio Standards
 
