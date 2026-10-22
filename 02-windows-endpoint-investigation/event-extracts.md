@@ -1,6 +1,6 @@
-# Event Extracts
+# Event Notes
 
-> These records are a simulated event set used for the controlled JPtest1 investigation. They are formatted to reflect the key fields an analyst would extract from Sysmon rather than being exported Windows EVTX data.
+> These records define the controlled JPtest1 lab scenario and the Sysmon fields being correlated. They are not exported EVTX records. Once the lab is rerun, the values can be replaced with the matching event details from the live capture.
 
 ## Event ID 1 - Process Create
 
