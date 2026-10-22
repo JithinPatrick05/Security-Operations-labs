@@ -1,4 +1,4 @@
-# Security Operations Labs - Ongoing
+# Security Operations Labs - Ongoing 👨‍💻
 
 Hands on security investigations focused on network analysis, endpoint telemetry, detection engineering, incident response and threat intelligence.
 
