@@ -15,14 +15,14 @@ I am now building deeper blue-team capability through hands-on work with Microso
 
 ## Career Highlights
 
-- Two years of enterprise Network Support, Technical Support and Service Assurance experience in a 24/7 environment.
+- 2+ years of enterprise Network Support, Technical Support and Service Assurance experience in a 24/7 environment.
+- Backed by 8+ years of customer facing support experience.
 - Supported network and service operations across 7,000+ customer sites.
 - Managed high-volume incident and service request queues, averaging 80+ ticket and incident touches per day.
 - Coordinated high-severity incidents, escalations and service recovery across engineering teams, carriers and vendors.
 - Worked with Telstra, Optus, Superloop and NBN on carrier and service escalations.
 - Performed first-line investigation of network and security-relevant events using telemetry, logs and packet captures.
 - Supported an overnight cyber-related operational incident, coordinating technical escalations and service recovery activity.
-- Backed by 8+ years of customer-facing support experience.
 
 ## Security Operations Portfolio
 
