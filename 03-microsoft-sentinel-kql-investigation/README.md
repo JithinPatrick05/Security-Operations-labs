@@ -10,7 +10,7 @@ The main goal was to answer three questions with KQL:
 2. Can I tie that process to the DNS lookup seen earlier?
 3. Can I confirm the repeated outbound connections from the same process?
 
-The Sysmon Operational log was collected into the \`WindowsEvent\` table in Log Analytics. I then used the values from the earlier investigation as pivots instead of searching the whole dataset blindly.
+The Sysmon Operational log was collected into the `WindowsEvent` table in Log Analytics. I then used the values from the earlier investigation as pivots instead of searching the whole dataset blindly.
 
 ## Environment
 
@@ -125,7 +125,7 @@ WindowsEvent
 
 The DNS event appeared **636 ms after the PowerShell process creation**.
 
-The same PID, \`6124\`, made the query. That gave me a clean link between the process and the hostname that had already appeared in Wireshark.
+The same PID, `6124`, made the query. That gave me a clean link between the process and the hostname that had already appeared in Wireshark.
 
 ### Evidence
 
@@ -254,9 +254,9 @@ The first network connection occurred **671 ms after the DNS query**.
 ## Findings
 
 - Sentinel returned the same PowerShell PID identified in the endpoint lab.
-- The process was launched by \`explorer.exe\` under \`JPtest1\\jpatrick\`.
-- The process queried \`cdn-storage-sync.test\`.
-- The query resolved to \`203.0.113.77\`.
+- The process was launched by `explorer.exe` under `JPtest1\\jpatrick`.
+- The process queried `cdn-storage-sync.test`.
+- The query resolved to `203.0.113.77`.
 - The same PID generated six TCP/443 connections to that destination.
 - The source ports and timestamps matched the Wireshark investigation.
 - The six connections averaged approximately 60.04 seconds apart.
@@ -273,7 +273,7 @@ If the same pattern appeared in a larger environment, the next step would be to 
 
 A useful hunting rule from this lab would look for scripting processes that repeatedly connect to the same external destination over a short period.
 
-I would not alert on \`powershell.exe\` by itself. Legitimate administration uses PowerShell heavily. The higher-value signal is the combination of:
+I would not alert on `powershell.exe` by itself. Legitimate administration uses PowerShell heavily. The higher-value signal is the combination of:
 
 - PowerShell process context
 - uncommon DNS name
@@ -293,7 +293,7 @@ I would not alert on \`powershell.exe\` by itself. Legitimate administration use
 
 - KQL makes it easier to pivot between process, DNS and network telemetry without manually stepping through each event.
 - Keeping the original PID and timestamps from the endpoint investigation made correlation much easier.
-- \`WindowsEvent\` stores useful Sysmon fields inside \`EventData\`, so extracting only the fields I needed made the result tables easier to work with.
+- `WindowsEvent` stores useful Sysmon fields inside `EventData`, so extracting only the fields I needed made the result tables easier to work with.
 - A narrow query based on known pivots is often more useful during triage than starting with a very broad search.
 - Sentinel did not change the underlying evidence; it made the same evidence much easier to search, compare and reuse for detection.
 
