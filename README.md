@@ -10,6 +10,7 @@ This repository documents practical exercises completed to strengthen security o
 |---|---|---|---|---|
 | 01 | [Wireshark Traffic Analysis](./01-wireshark-traffic-analysis/) | Network traffic analysis and protocol investigation | Wireshark, Windows 11, Command Prompt | Completed |
 | 02 | [Windows Endpoint Investigation](./02-windows-endpoint-investigation/) | Sysmon event correlation and endpoint triage | Sysmon, Event Viewer, PowerShell | Completed |
+| 03 | [Microsoft Sentinel KQL Investigation](./03-microsoft-sentinel-kql-investigation/) | Centralised Sysmon analysis and KQL hunting | Microsoft Sentinel, Log Analytics, KQL | Completed |
 
 ## Core Skills Demonstrated
 
@@ -24,6 +25,9 @@ This repository documents practical exercises completed to strengthen security o
 - Windows endpoint telemetry
 - Sysmon event correlation
 - Process and persistence analysis
+- Microsoft Sentinel and Log Analytics
+- KQL hunting and event correlation
+- Centralised endpoint log analysis
 
 ## Portfolio Approach
 
