@@ -4,6 +4,33 @@ Hands on security investigations focused on network analysis, endpoint telemetry
 
 This repository documents practical exercises completed to strengthen security operations and investigation skills. Each project records the setup, investigation steps, findings and follow-up work from controlled security exercises.
 
+## About Me
+
+I am an IT operations professional transitioning further into cybersecurity, with two years of enterprise Network Support, Technical Support and Service Assurance experience at Macquarie Technology Group.
+
+My background includes incident triage, high-severity outage coordination, network troubleshooting, service assurance and customer-facing technical support across a large enterprise environment supporting 7,000+ customer sites. I have worked with technologies including VMware SD-WAN, FortiGate, VPNs, Microsoft 365, Active Directory, ServiceNow, Wireshark and Windows/Linux systems.
+
+My current focus is security operations, incident investigation and blue-team analysis. I am building practical experience with Microsoft Sentinel, KQL, Sysmon, Windows event telemetry, network traffic analysis and detection-focused investigations through the labs in this repository.
+
+### Certifications & Education
+
+- CompTIA Security+
+- ITIL 4 Foundation
+- Microsoft SC-200 Security Operations Analyst — In Progress
+- Bachelor of Science in Information Technology, Cybersecurity & Networking — University of Technology Sydney, Distinction
+- Diploma of Information Technology — UTS College, Distinction
+
+### Cybersecurity Focus
+
+- Security Operations and Incident Triage
+- Microsoft Sentinel and KQL
+- Windows Endpoint Telemetry and Sysmon
+- Network Traffic Analysis with Wireshark
+- Detection Engineering Fundamentals
+- Incident Response and Event Correlation
+- Network Security and Troubleshooting
+- MITRE ATT&CK based investigation
+
 ## Projects
 
 | # | Project | Focus | Tools | Status |
