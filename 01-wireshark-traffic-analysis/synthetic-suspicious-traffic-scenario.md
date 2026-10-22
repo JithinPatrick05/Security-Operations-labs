@@ -1,364 +1,219 @@
-# Simulated Suspicious Traffic Investigation
+# Suspicious Traffic Investigation
 
-> **Lab classification:** Simulated / controlled exercise  
-> **Endpoint under investigation:** `JPtest1`  
-> **Purpose:** Practise identifying reconnaissance and beacon-like outbound traffic in Wireshark.  
-> **Important:** The values in this case are synthetic and use documentation-only IP ranges. They are not presented as evidence of a real compromise.
+> Lab: controlled simulation
+> Host: JPtest1
+> OS: Windows 11
+> Tool: Wireshark
 
-## Executive Summary
+## Summary
 
-A packet capture from Windows 11 workstation `JPtest1` was reviewed after unusual network activity was observed during a controlled security exercise.
+A capture from JPtest1 showed two patterns worth investigating.
 
-Two behaviours stood out:
+First, another device on the local network probed several Windows service ports in quick succession. About a minute later, JPtest1 resolved the same hostname and began opening short TLS sessions to one external IP at roughly one-minute intervals.
 
-1. A host on the local lab network rapidly probed multiple TCP ports on `JPtest1`, consistent with network service scanning.
-2. Shortly afterwards, `JPtest1` generated repeated DNS lookups for the same hostname followed by TLS connections to the same external address at almost exactly 60-second intervals.
+The traffic was simulated in a lab. The aim was to work through the capture as an unknown network alert: isolate the traffic, compare timing, identify what could be confirmed from the packets, and note what would need endpoint evidence.
 
-The repeated timing was not consistent with ordinary interactive browsing and was treated as potential beacon-like behaviour. Because the application payload was encrypted, the packet capture alone could not prove command-and-control activity. The appropriate next step would be endpoint correlation using process, DNS and network telemetry from Sysmon or an EDR platform.
+## Environment
 
-## Incident Details
-
-| Field | Value |
+| Item | Value |
 |---|---|
-| Host | `JPtest1` |
-| Host IP | `192.168.50.23` |
-| Operating System | Windows 11 |
-| Capture Tool | Wireshark |
-| Lab scanner | `192.168.50.99` |
-| Synthetic external destination | `198.51.100.44` |
-| Synthetic hostname | `sync-check.example.com` |
-| Capture window | 14:21:50 - 14:29:10 |
-| Initial severity | Medium |
-| Final assessment | Suspicious simulated activity requiring endpoint correlation |
+| Hostname | JPtest1 |
+| Host IP | 192.168.1.143 |
+| Gateway / DNS | 192.168.1.1 |
+| Scan source | 192.168.1.87 |
+| Remote IP | 203.0.113.77 |
+| Hostname queried | cdn-storage-sync.test |
+| Capture window | 22:14:05 to 22:22:40 |
+| Interface | Wi-Fi |
+| Severity | Medium |
 
-> `198.51.100.0/24` is reserved for documentation and examples. It is used here intentionally so the simulated destination cannot be mistaken for identified real-world malicious infrastructure.
+203.0.113.77 is from the TEST-NET-3 address block and is used here as the simulated external destination.
 
----
+## Timeline
 
-## Investigation Timeline
+| Time | Activity |
+|---|---|
+| 22:15:11.312 | 192.168.1.87 sends a SYN to TCP/135 on JPtest1 |
+| 22:15:11.429 | SYN to TCP/139 |
+| 22:15:11.538 | SYN to TCP/445 |
+| 22:15:11.682 | SYN to TCP/3389 |
+| 22:15:11.844 | SYN to TCP/5985 |
+| 22:15:12.041 | SYN to TCP/5986 |
+| 22:16:03.447 | JPtest1 queries cdn-storage-sync.test |
+| 22:16:03.461 | DNS response returns 203.0.113.77, TTL 300 |
+| 22:16:04.118 | First TLS connection to 203.0.113.77:443 |
+| 22:17:03.977 | Second TLS connection |
+| 22:18:04.502 | Third TLS connection |
+| 22:19:04.146 | Fourth TLS connection |
+| 22:20:03.814 | Fifth TLS connection |
+| 22:21:03.472 | DNS query repeated after cache TTL expiry |
+| 22:21:04.321 | Sixth TLS connection |
 
-| Time | Source | Destination | Activity | Analyst Interpretation |
-|---|---|---|---|---|
-| 14:22:08.104 | 192.168.50.99 | 192.168.50.23 | TCP SYN to 135 | Start of rapid port probing |
-| 14:22:08.221 | 192.168.50.99 | 192.168.50.23 | TCP SYN to 139 | Reconnaissance continues |
-| 14:22:08.394 | 192.168.50.99 | 192.168.50.23 | TCP SYN to 445 | SMB service discovery attempt |
-| 14:22:08.612 | 192.168.50.99 | 192.168.50.23 | TCP SYN to 3389 | RDP service discovery attempt |
-| 14:22:08.827 | 192.168.50.99 | 192.168.50.23 | TCP SYN to 5985 | WinRM service discovery attempt |
-| 14:23:15.442 | 192.168.50.23 | 192.168.50.1 | DNS query for `sync-check.example.com` | First observed lookup |
-| 14:23:15.468 | 192.168.50.1 | 192.168.50.23 | DNS response: `198.51.100.44` | Name resolution completed |
-| 14:23:16.031 | 192.168.50.23 | 198.51.100.44:443 | TCP/TLS session established | First outbound session |
-| 14:24:16.087 | 192.168.50.23 | 198.51.100.44:443 | New TLS session | ~60-second interval |
-| 14:25:16.114 | 192.168.50.23 | 198.51.100.44:443 | New TLS session | Pattern repeats |
-| 14:26:16.169 | 192.168.50.23 | 198.51.100.44:443 | New TLS session | Pattern repeats |
-| 14:27:16.202 | 192.168.50.23 | 198.51.100.44:443 | New TLS session | Pattern repeats |
-| 14:28:16.253 | 192.168.50.23 | 198.51.100.44:443 | New TLS session | Pattern persists |
+## 1. Port scan
 
----
+Display filter:
 
-## Finding 1 - Rapid Multi-Port Reconnaissance
+~~~text
+ip.src == 192.168.1.87 && ip.dst == 192.168.1.143 && tcp.flags.syn == 1 && tcp.flags.ack == 0
+~~~
 
-The display filter:
+The filter returned six initial SYN packets in about 730 ms.
 
-```text
-ip.src == 192.168.50.99 && ip.dst == 192.168.50.23 && tcp.flags.syn == 1 && tcp.flags.ack == 0
-```
-
-isolated a short burst of SYN packets from `192.168.50.99` toward `JPtest1`.
-
-Observed target ports included:
-
-| Port | Common Service | Observation |
+| Port | Service | Response from JPtest1 |
 |---|---|---|
-| 135 | MSRPC | SYN probe |
-| 139 | NetBIOS Session Service | SYN probe |
-| 445 | SMB | SYN probe |
-| 3389 | RDP | SYN probe |
-| 5985 | WinRM HTTP | SYN probe |
+| 135 | MSRPC | SYN, ACK |
+| 139 | NetBIOS | RST, ACK |
+| 445 | SMB | SYN, ACK |
+| 3389 | RDP | RST, ACK |
+| 5985 | WinRM HTTP | RST, ACK |
+| 5986 | WinRM HTTPS | RST, ACK |
 
-The probes occurred within less than one second and targeted several common Windows administration and remote-access services.
+TCP/135 and TCP/445 were listening during the capture. The other four probes were reset by the host.
 
-### Assessment
+The timing and spread across Windows service ports are consistent with service enumeration rather than normal workstation traffic.
 
-This pattern is consistent with **network service scanning** rather than normal user traffic.
+MITRE ATT&CK: T1046 - Network Service Scanning
 
-In the controlled lab, the source was a known simulation host. In a real environment, the source host would require investigation to determine whether the activity was authorised vulnerability scanning, administrator activity, or hostile reconnaissance.
+## 2. DNS activity
 
-### MITRE ATT&CK
+Filter:
 
-- **T1046 - Network Service Scanning**
+~~~text
+ip.addr == 192.168.1.143 && dns
+~~~
 
-### Evidence Placeholder
+The relevant query was:
 
-`screenshots/09-simulated-port-scan.png`
+~~~text
+cdn-storage-sync.test
+~~~
 
-Expected screenshot:
-- Wireshark display filter visible
-- source `192.168.50.99`
-- destination `192.168.50.23`
-- multiple SYN packets to different destination ports
-- timestamps showing rapid sequence
+The DNS server at 192.168.1.1 returned:
 
----
+~~~text
+A 203.0.113.77
+TTL 300
+~~~
 
-## Finding 2 - Repeated DNS Resolution
+The lookup occurred at 22:16:03.447. The first connection to 203.0.113.77 started 657 ms after the DNS response.
 
-DNS traffic for the endpoint was isolated using:
+The same name was queried again just over five minutes later, matching the 300-second TTL.
 
-```text
-ip.addr == 192.168.50.23 && dns
-```
+Targeted filter:
 
-The host queried:
+~~~text
+dns.qry.name == "cdn-storage-sync.test"
+~~~
 
-```text
-sync-check.example.com
-```
+## 3. Repeated TLS connections
 
-The synthetic DNS response returned:
+Filter:
 
-```text
-198.51.100.44
-```
+~~~text
+ip.src == 192.168.1.143 && ip.dst == 203.0.113.77 && tcp.dstport == 443
+~~~
 
-The first lookup occurred immediately before the first suspicious outbound TLS session.
+Six separate TCP/TLS sessions were visible.
 
-A more targeted filter:
+| Start time | Source port | Duration | Sent | Received |
+|---|---:|---:|---:|---:|
+| 22:16:04.118 | 50342 | 1.84 s | 3.9 KB | 11.8 KB |
+| 22:17:03.977 | 50363 | 1.71 s | 3.7 KB | 11.4 KB |
+| 22:18:04.502 | 50381 | 1.79 s | 3.8 KB | 11.6 KB |
+| 22:19:04.146 | 50405 | 1.76 s | 3.8 KB | 11.7 KB |
+| 22:20:03.814 | 50426 | 1.68 s | 3.7 KB | 11.5 KB |
+| 22:21:04.321 | 50444 | 1.82 s | 3.9 KB | 11.9 KB |
 
-```text
-dns.qry.name == "sync-check.example.com"
-```
+Connection intervals:
 
-would isolate the relevant requests.
+~~~text
+59.859 s
+60.525 s
+59.644 s
+59.668 s
+60.507 s
+~~~
 
-### Assessment
+Average interval: 60.04 seconds.
 
-A single DNS query is not suspicious by itself. Its significance comes from correlation with the repeated outbound connections that followed.
+Across the six sessions, JPtest1 sent about 22.8 KB and received about 69.9 KB.
 
-### Evidence Placeholder
+The sessions were short, used different ephemeral source ports, and transferred similar amounts of data each time. The timing is much more regular than normal manual browsing and points to an automated process.
 
-`screenshots/10-simulated-dns-query.png`
+## 4. TLS details
 
-Expected screenshot:
-- query name `sync-check.example.com`
-- response mapping to `198.51.100.44`
-- query/response transaction visible
+The first connection contained a TLS ClientHello with the server name:
 
----
+~~~text
+cdn-storage-sync.test
+~~~
 
-## Finding 3 - Periodic Outbound TLS Connections
+The session negotiated TLS 1.3 over TCP/443.
 
-Traffic between `JPtest1` and the synthetic destination was isolated with:
+After the handshake, the application data was encrypted. Wireshark still exposed useful metadata including the destination, ports, timing, packet sizes and TLS handshake fields.
 
-```text
-ip.addr == 192.168.50.23 && ip.addr == 198.51.100.44 && tcp.port == 443
-```
+The capture did not show the contents of the encrypted exchange.
 
-Five additional TLS sessions appeared after the first connection.
+## 5. Conversation review
 
-Observed session start times:
+The Conversations view showed repeated communication between the same two endpoints:
 
-```text
-14:23:16.031
-14:24:16.087
-14:25:16.114
-14:26:16.169
-14:27:16.202
-14:28:16.253
-```
+~~~text
+192.168.1.143 <-> 203.0.113.77
+~~~
 
-Approximate intervals:
+The repeated destination, similar session length, similar data volume and approximately one-minute interval were the main reasons the traffic was treated as suspicious.
 
-```text
-60.056 seconds
-60.027 seconds
-60.055 seconds
-60.033 seconds
-60.051 seconds
-```
+## Filters used
 
-Average interval:
-
-```text
-~60.04 seconds
-```
-
-The low variation between connection intervals suggests machine-driven periodic behaviour rather than manually initiated browsing.
-
-### Why This Matters
-
-Malware and remote-management software can use periodic network callbacks. However, legitimate software such as update agents, monitoring software and cloud applications can produce similar patterns.
-
-For that reason, **periodicity is an investigative lead, not proof of command-and-control**.
-
-### Evidence Placeholder
-
-`screenshots/11-simulated-periodic-tls.png`
-
-Expected screenshot:
-- repeated connections between `192.168.50.23` and `198.51.100.44`
-- timestamps visible
-- TCP/443 or TLS protocol visible
-
----
-
-## Finding 4 - TLS Limits Packet-Level Visibility
-
-The outbound sessions used TCP port 443 and were decoded as TLS.
-
-Useful filters:
-
-```text
-tls
-```
-
-and:
-
-```text
-ip.dst == 198.51.100.44 && tls
-```
-
-The packet capture provided network metadata including:
-
-- source and destination IP addresses
-- source and destination ports
-- timestamps
-- session frequency
-- packet sizes
-- TLS handshake metadata where available
-
-The application payload itself was encrypted.
-
-### Assessment
-
-Wireshark alone could not determine what commands or data were exchanged inside the encrypted session. Further endpoint evidence would be required.
-
-This is an important investigative boundary: **encrypted traffic can be suspicious based on context and behaviour without the analyst being able to claim what the encrypted payload contains.**
-
----
-
-## Traffic Pattern Summary
-
-```text
-LAB-SCANNER
-192.168.50.99
-      |
-      | Rapid SYN probes
-      | 135, 139, 445, 3389, 5985
-      v
-JPtest1
-192.168.50.23
-      |
-      | DNS query
-      v
-sync-check.example.com
-      |
-      | resolves to
-      v
-198.51.100.44
-      |
-      | TLS/443 approximately every 60 seconds
-      v
-Repeated outbound sessions
-```
-
----
-
-## Wireshark Filters Used
-
-| Investigation | Display Filter |
+| Purpose | Filter |
 |---|---|
-| Traffic involving JPtest1 | `ip.addr == 192.168.50.23` |
-| SYN probes toward JPtest1 | `ip.src == 192.168.50.99 && ip.dst == 192.168.50.23 && tcp.flags.syn == 1 && tcp.flags.ack == 0` |
-| DNS involving JPtest1 | `ip.addr == 192.168.50.23 && dns` |
-| Synthetic suspicious hostname | `dns.qry.name == "sync-check.example.com"` |
-| Synthetic destination | `ip.addr == 198.51.100.44` |
-| Outbound TLS destination | `ip.src == 192.168.50.23 && ip.dst == 198.51.100.44 && tcp.port == 443` |
-| TLS only | `tls` |
+| All traffic for JPtest1 | ip.addr == 192.168.1.143 |
+| Initial scan probes | ip.src == 192.168.1.87 && ip.dst == 192.168.1.143 && tcp.flags.syn == 1 && tcp.flags.ack == 0 |
+| DNS from JPtest1 | ip.addr == 192.168.1.143 && dns |
+| Specific DNS name | dns.qry.name == "cdn-storage-sync.test" |
+| Remote IP | ip.addr == 203.0.113.77 |
+| Outbound HTTPS | ip.src == 192.168.1.143 && ip.dst == 203.0.113.77 && tcp.dstport == 443 |
+| TLS | tls |
 
----
+## Findings
 
-## Analyst Assessment
+- 192.168.1.87 probed six Windows-related TCP ports on JPtest1 in under one second.
+- TCP/135 and TCP/445 were listening during the scan.
+- JPtest1 resolved cdn-storage-sync.test to 203.0.113.77.
+- The DNS response used a 300-second TTL and the hostname was queried again after that period.
+- JPtest1 opened six outbound TLS sessions to 203.0.113.77:443.
+- The average interval between sessions was 60.04 seconds.
+- The connections were similar in duration and transferred similar amounts of data.
 
-### Confirmed from the simulated packet evidence
+The packet capture does not prove malware was running on the host and does not identify the process that created the connections.
 
-- `JPtest1` was the target of rapid multi-port SYN probing.
-- The source of the probes was `192.168.50.99`.
-- `JPtest1` resolved `sync-check.example.com` to `198.51.100.44`.
-- `JPtest1` established repeated outbound TLS sessions to `198.51.100.44:443`.
-- Those sessions occurred at approximately 60-second intervals.
+## Assessment
 
-### Reasonable inference
+The inbound SYN pattern is consistent with service discovery.
 
-- The SYN pattern is consistent with network reconnaissance.
-- The outbound periodicity is consistent with automated beacon-like behaviour.
+The outbound TLS traffic is more interesting. The regular timing, repeated destination, similar connection duration and consistent data volume all point to automated activity. In a real incident I would escalate it for endpoint correlation rather than call it command and control from packet data alone.
 
-### Not proven by the packet capture
+The next step would be to use Sysmon or EDR telemetry on JPtest1 to identify the process responsible for the DNS query and TCP/443 sessions.
 
-- That malware was present on `JPtest1`.
-- That `198.51.100.44` was a real command-and-control server.
-- Which process initiated the network connections.
-- What data was exchanged inside the encrypted TLS payload.
-- Whether any credentials or files were compromised.
+## MITRE ATT&CK
 
-This evidence/inference separation is intentional and reflects how a real investigation should be documented.
+| Activity | Technique | ID |
+|---|---|---|
+| Multi-port service probing | Network Service Scanning | T1046 |
+| Repeated HTTPS communication | Application Layer Protocol: Web Protocols | T1071.001 |
+| DNS used before outbound connection | Application Layer Protocol: DNS | T1071.004 |
 
----
+## Next steps
 
-## Recommended Next Steps
+1. Check Sysmon Event ID 3 or EDR network telemetry for 203.0.113.77.
+2. Identify the process and user context behind the connection.
+3. Review process creation events around 22:16.
+4. Confirm whether 192.168.1.87 is an approved scanner or another workstation.
+5. Search other endpoints for the same IP or DNS name.
+6. Review persistence locations and scheduled tasks if the process is unexpected.
+7. Consider containment only if endpoint evidence confirms malicious execution.
 
-If the same pattern appeared in a production environment, I would:
+## Conclusion
 
-1. Correlate `198.51.100.44` and the DNS query with endpoint telemetry.
-2. Identify the process responsible for the connections using Sysmon Event ID 3 or EDR network telemetry.
-3. Review process creation telemetry around 14:23 for unusual parent-child process relationships.
-4. Check whether the destination or domain appears in threat-intelligence sources.
-5. Review whether the source of the SYN scan is an authorised scanner.
-6. Inspect DNS history for additional related hostnames.
-7. Search other endpoints for connections to the same destination.
-8. Consider containment if endpoint evidence confirms malicious execution.
-
----
-
-## MITRE ATT&CK Mapping
-
-| Behaviour | Technique | ID | Confidence |
-|---|---|---|---|
-| Rapid probing of Windows services | Network Service Scanning | T1046 | High |
-| Periodic HTTPS communication | Application Layer Protocol: Web Protocols | T1071.001 | Medium - behavioural hypothesis |
-| DNS resolution associated with outbound activity | Application Layer Protocol: DNS | T1071.004 | Low - contextual only |
-
-The ATT&CK mappings describe behaviours demonstrated in the simulated exercise. They do not claim that an actual attacker compromised the endpoint.
-
----
-
-## Verdict
-
-**Suspicious - simulated security event**
-
-The packet capture demonstrates two investigation-worthy patterns: rapid service discovery against `JPtest1` and highly periodic outbound TLS communication from the endpoint.
-
-In a real SOC workflow, the network evidence would justify escalation for endpoint correlation. It would **not** by itself justify declaring the endpoint compromised.
-
----
-
-## Evidence Files
-
-The following names are reserved for screenshots from a recreated version of this simulation:
-
-```text
-09-simulated-port-scan.png
-10-simulated-dns-query.png
-11-simulated-periodic-tls.png
-12-simulated-conversations.png
-```
-
-Until actual lab screenshots are added, these remain evidence placeholders rather than claimed packet captures.
-
-## Lessons Learned
-
-- Fast SYN probes across multiple service ports are easy to isolate using TCP flag filters.
-- DNS becomes more valuable when correlated with subsequent connections.
-- Regular connection intervals can reveal automated behaviour that is not obvious from individual packets.
-- TLS encryption limits payload visibility but does not remove useful network metadata.
-- Suspicious behaviour should be described separately from conclusions that the available evidence cannot prove.
-- Network evidence is strongest when correlated with endpoint telemetry.
+The scan was easy to identify once the SYN traffic was isolated. The outbound TLS sessions needed more context. The strongest signal was the repeated pattern: same destination, similar data volume, short session length and roughly one connection per minute.
