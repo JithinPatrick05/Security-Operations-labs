@@ -2,14 +2,14 @@
 
 Hands on security investigations focused on network analysis, endpoint telemetry, detection engineering, incident response and threat intelligence.
 
-This repository documents practical exercises completed to strengthen security operations and investigation skills. Each project is written as a technical case study with the objective, environment, methodology, evidence, findings and lessons learned.
+This repository documents practical exercises completed to strengthen security operations and investigation skills. Each project records the setup, investigation steps, findings and follow-up work from controlled security exercises.
 
 ## Projects
 
 | # | Project | Focus | Tools | Status |
 |---|---|---|---|---|
 | 01 | [Wireshark Traffic Analysis](./01-wireshark-traffic-analysis/) | Network traffic analysis and protocol investigation | Wireshark, Windows 11, Command Prompt | Completed |
-| 02 | [Windows Endpoint Investigation](./02-windows-endpoint-investigation/) | Sysmon event correlation and endpoint triage | Sysmon, Event Viewer, PowerShell | Simulated lab |
+| 02 | [Windows Endpoint Investigation](./02-windows-endpoint-investigation/) | Sysmon event correlation and endpoint triage | Sysmon, Event Viewer, PowerShell | Controlled lab |
 
 ## Core Skills Demonstrated
 
