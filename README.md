@@ -31,6 +31,8 @@ I am now building deeper blue-team capability through hands-on work with Microso
 | [Wireshark Traffic Analysis](./01-wireshark-traffic-analysis/) | Packet capture, protocol analysis, suspicious traffic investigation | Wireshark, TCP/IP, DNS, TLS |
 | [Windows Endpoint Investigation](./02-windows-endpoint-investigation/) | Endpoint telemetry, process correlation, persistence analysis | Sysmon, Event Viewer, PowerShell |
 | [Microsoft Sentinel KQL Investigation](./03-microsoft-sentinel-kql-investigation/) | Centralised log analysis, KQL hunting and event correlation | Microsoft Sentinel, Log Analytics, KQL |
+| [SOC Ticket Writing & Shift Handoff](./04-soc-ticket-escalation-handoff/) | SOC documentation, severity, escalation and handoff | Elastic, Kibana, Sysmon, Windows Security |
+| [Phishing & Email Security Investigation](./05-phishing-email-security-investigation/) | Phishing triage, IOC extraction, BEC and response planning | Email analysis, IOC triage, SOC documentation |
 
 ### Investigation Progression
 
@@ -53,7 +55,7 @@ This progression demonstrates how packet-level evidence, endpoint events and SIE
 | Area | Technologies / Skills |
 |---|---|
 | Security Operations | Microsoft Sentinel, Microsoft Defender fundamentals, SIEM/EDR concepts, IDS/IPS, alert triage, incident investigation, MITRE ATT&CK |
-| Detection & Analysis | KQL, Sysmon, Windows Event Logs, log correlation, packet analysis, threat hunting fundamentals, detection logic |
+| Detection & Analysis | KQL, Sysmon, Windows Event Logs, Elastic/Kibana, log correlation, packet analysis, phishing triage, IOC analysis, threat hunting fundamentals, detection logic |
 | Network Security | FortiGate, VMware SD-WAN, Wireshark, TCP/IP, DNS, DHCP, VPN, LAN/WAN, routing and switching |
 | Systems & Identity | Windows 10/11, Linux, Active Directory, Microsoft 365, MFA, RBAC, endpoint support |
 | IT Operations | ServiceNow ITSM, P1/P2 incident coordination, SLA management, RCA, escalation, technical documentation |
