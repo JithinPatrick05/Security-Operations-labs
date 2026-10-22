@@ -2,422 +2,147 @@
 
 ## Overview
 
-This project demonstrates practical network traffic capture and packet analysis using Wireshark on a Windows 11 endpoint. The objective was to generate normal user traffic, isolate relevant protocols, reconstruct client-server communication and document how common network protocols appear in a packet capture.
+This lab covers packet capture and traffic analysis on a Windows 11 workstation using Wireshark. I generated normal browsing, DNS and ICMP traffic first, then reviewed a separate controlled capture containing suspicious network behaviour.
 
-The exercise focuses on foundational skills used in security operations, incident response and network troubleshooting.
-
-## Project Status
-
-**Completed lab exercise.**  
-The written analysis has been migrated into this portfolio. Evidence screenshots are being re-added from the original lab capture.
-
-## Objectives
-
-- Capture live traffic from the active Windows network interface.
-- Identify common network protocols in a packet capture.
-- Inspect TCP connection establishment.
-- Investigate DNS queries and responses.
-- Review unencrypted HTTP request/response traffic.
-- Examine TLS-encrypted web sessions.
-- Generate and inspect ICMP echo traffic.
-- Use Wireshark statistics to identify endpoints, conversations and protocol distribution.
-- Document findings using a repeatable analyst workflow.
+The aim was to practise reading traffic at packet level rather than only relying on high-level alerts.
 
 ## Environment
 
 | Component | Details |
 |---|---|
-| Host Operating System | Windows 11 |
-| Packet Analysis Tool | Wireshark |
-| Traffic Generation | Web browser and Windows Command Prompt |
-| Capture Source | Active network adapter |
-| Traffic Type | Normal user-generated lab traffic |
-| Analysis Type | Protocol identification, packet inspection and session analysis |
+| Host | Windows 11 |
+| Packet analyser | Wireshark |
+| Traffic generation | Browser and Windows Command Prompt |
+| Capture interface | Active Wi-Fi adapter |
+| Main protocols reviewed | TCP, UDP, DNS, HTTP, TLS, ICMP, ARP |
 
-## Traffic Generation
+## Baseline traffic
 
-Normal user activity was generated during the capture, including:
+I started with normal traffic so I had something clean to compare against.
 
-- DNS lookups
-- Web browsing
-- HTTPS sessions
-- ICMP echo requests
-- Local network communication
+~~~cmd
+nslookup github.com
+ping 1.1.1.1
+~~~
 
-Example commands used during the exercise:
+For web traffic I used:
 
-```cmd
-nslookup example.com
-ping example.com
-```
+- http://neverssl.com for readable HTTP
+- https://github.com for TLS/HTTPS
 
-A browser was used to generate additional HTTP/HTTPS traffic.
+## Protocol review
 
-## Investigation Methodology
+I used:
 
-The capture was reviewed in five stages:
-
-1. **Establish scope** — identify the active capture interface and time window.
-2. **Identify protocols** — use the Protocol column and Protocol Hierarchy statistics.
-3. **Inspect individual sessions** — filter DNS, TCP, HTTP, TLS and ICMP traffic.
-4. **Correlate communication** — associate name resolution, connection establishment and application traffic.
-5. **Summarise findings** — document normal network behaviour and analyst observations.
-
----
-
-## 1. Packet Capture
-
-Wireshark was started on the active Windows network adapter while normal user activity was generated.
-
-A capture filter can be used when analysis needs to be limited to a specific host:
-
-```text
-host <IP_ADDRESS>
-```
-
-For this exercise, most filtering was performed after capture using Wireshark display filters.
-
-### Evidence
-
-`screenshots/01-capture-overview.png`
-
-Expected evidence:
-- Wireshark capture window
-- active adapter traffic
-- packet number, time, source, destination, protocol and info columns
-
----
-
-## 2. Protocol Identification
-
-The packet list was reviewed to identify common protocols present in the capture.
-
-Protocols relevant to the exercise included:
-
-- TCP
-- UDP
-- DNS
-- HTTP
-- TLS
-- ICMP
-
-Additional local-network protocols such as ARP may also appear depending on host activity during the capture.
-
-The following Wireshark views were useful:
-
-```text
+~~~text
 Statistics -> Protocol Hierarchy
 Statistics -> Conversations
 Statistics -> Endpoints
 Statistics -> I/O Graphs
-```
+~~~
 
-These views provide a high-level summary before deeper packet inspection.
+This gave me the main protocols and busiest endpoints before filtering individual conversations.
 
-### Evidence
+## TCP handshake
 
-`screenshots/02-protocol-hierarchy.png`
+Filter:
 
----
-
-## 3. TCP Three-Way Handshake
-
-A successful TCP session was identified and the connection-establishment sequence inspected.
-
-Typical sequence:
-
-```text
-Client -> Server    SYN
-Server -> Client    SYN, ACK
-Client -> Server    ACK
-```
-
-This sequence confirms that both hosts completed TCP connection establishment before application data was exchanged.
-
-Useful display filters:
-
-```text
-tcp
-```
-
-```text
+~~~text
 tcp.flags.syn == 1
-```
+~~~
 
-For initial connection attempts only:
+A normal TCP connection showed:
 
-```text
-tcp.flags.syn == 1 && tcp.flags.ack == 0
-```
+~~~text
+SYN
+SYN, ACK
+ACK
+~~~
 
-### Finding
+This was useful later when comparing a normal connection with the short SYN probes in the suspicious capture.
 
-The capture contained successful TCP connection establishment consistent with normal client-server web communication.
+## DNS
 
-### Evidence
+Filter:
 
-`screenshots/03-tcp-handshake.png`
-
----
-
-## 4. DNS Analysis
-
-DNS traffic was filtered using:
-
-```text
+~~~text
 dns
-```
+~~~
 
-A controlled lookup was generated with:
+The github.com lookup showed the query, matching response and returned address records. I checked the query name, type, transaction ID, response addresses and response time.
 
-```cmd
-nslookup example.com
-```
+## HTTP
 
-The query and corresponding response were inspected for:
+Filter:
 
-- requested hostname
-- query type
-- transaction relationship
-- returned address records
-- response timing
-
-### Analyst Observation
-
-DNS analysis is often an early step in network investigations because it can connect user or process activity to external hostnames before the subsequent network session is analysed.
-
-### Finding
-
-The capture showed normal hostname-resolution behaviour: a DNS query was issued for the requested domain and a corresponding response returned address information used for subsequent communication.
-
-### Evidence
-
-`screenshots/04-dns-query-response.png`
-
----
-
-## 5. HTTP Analysis
-
-Unencrypted HTTP traffic was isolated using:
-
-```text
+~~~text
 http
-```
+~~~
 
-Where present, the analysis focused on:
+Traffic to neverssl.com showed readable HTTP request information including the request method, URI, Host header and response code.
 
-- request method
-- requested URI
-- Host header
-- response status code
-- response headers
+## TLS / HTTPS
 
-Representative structure:
+Filter:
 
-```http
-GET / HTTP/1.1
-Host: example.com
-```
-
-### Security Relevance
-
-Unlike HTTPS, HTTP does not encrypt application-layer request and response content. Where HTTP is present, packet capture can expose considerably more information about the request.
-
-### Finding
-
-The exercise demonstrated the difference between directly readable HTTP application data and encrypted HTTPS/TLS application traffic.
-
-### Evidence
-
-`screenshots/05-http-request.png`
-
----
-
-## 6. HTTPS / TLS Analysis
-
-Encrypted web traffic was filtered using:
-
-```text
+~~~text
 tls
-```
+~~~
 
-The capture was inspected for TLS session-establishment traffic and encrypted application data.
+The GitHub session showed TLS handshake traffic and encrypted application data over TCP/443.
 
-Depending on the negotiated TLS version, visible handshake information can include:
+Even though the application payload was encrypted, the capture still exposed useful metadata such as source and destination, ports, timing, packet sizes and handshake details.
 
-- Client Hello
-- Server Hello
-- negotiated protocol parameters
-- server name information where available
-- encrypted application data
+## ICMP
 
-### Analyst Observation
+Filter:
 
-TLS encryption prevents the payload from being read directly in a normal packet capture without appropriate session keys. However, useful metadata such as communicating endpoints, ports, timing, handshake details and traffic volume can still support an investigation.
-
-### Finding
-
-HTTPS sessions were observed using TCP port 443. Application payloads were encrypted, while connection and TLS-session metadata remained available for analysis.
-
-### Evidence
-
-`screenshots/06-tls-session.png`
-
----
-
-## 7. ICMP Analysis
-
-ICMP traffic was generated using:
-
-```cmd
-ping example.com
-```
-
-The capture was filtered with:
-
-```text
+~~~text
 icmp
-```
+~~~
 
-The analysis focused on:
+The ping to 1.1.1.1 produced Echo Request and Echo Reply packets and made it easy to compare request/reply timing.
 
-- Echo Request
-- Echo Reply
-- source and destination
-- sequence relationship
-- round-trip behaviour
-
-### Finding
-
-ICMP echo requests and replies demonstrated basic reachability testing and showed how troubleshooting traffic appears in a packet capture.
-
-### Evidence
-
-`screenshots/07-icmp-echo.png`
-
----
-
-## 8. Packet Statistics
-
-Wireshark statistics were used to move from individual packets to higher-level traffic patterns.
-
-### Protocol Hierarchy
-
-Used to understand the protocol distribution in the capture.
-
-### Conversations
-
-Used to identify pairs of endpoints communicating with each other.
-
-### Endpoints
-
-Used to identify active hosts observed in the capture.
-
-### I/O Graphs
-
-Used to visualise packet activity over time.
-
-### Evidence
-
-`screenshots/08-conversations-endpoints.png`
-
----
-
-## Useful Wireshark Display Filters
+## Useful filters
 
 | Purpose | Filter |
 |---|---|
-| DNS | `dns` |
-| HTTP | `http` |
-| TLS | `tls` |
-| TCP | `tcp` |
-| UDP | `udp` |
-| ICMP | `icmp` |
-| ARP | `arp` |
-| Specific host | `ip.addr == <IP_ADDRESS>` |
-| Initial TCP SYN | `tcp.flags.syn == 1 && tcp.flags.ack == 0` |
-| TCP retransmissions | `tcp.analysis.retransmission` |
+| DNS | dns |
+| HTTP | http |
+| TLS | tls |
+| TCP | tcp |
+| UDP | udp |
+| ICMP | icmp |
+| ARP | arp |
+| One host | ip.addr == <IP_ADDRESS> |
+| Initial TCP SYN | tcp.flags.syn == 1 && tcp.flags.ack == 0 |
+| Retransmissions | tcp.analysis.retransmission |
 
-> Modern Wireshark versions commonly decode DHCP using the `dhcp` display filter. Older material may refer to BOOTP because DHCP is based on the BOOTP message format.
+## Baseline findings
 
-## Key Findings
+- DNS responses could be tied to later connections using timestamps and returned addresses.
+- TCP connection establishment was easy to identify from SYN, SYN-ACK and ACK.
+- HTTP exposed application-layer data directly in the capture.
+- TLS hid application content but still left useful network metadata.
+- Conversations and Endpoints were quicker than reading packets one by one when identifying the main communication paths.
 
-- Successfully captured and inspected live network traffic from a Windows endpoint.
-- Identified multiple network and application protocols within the same capture.
-- Correlated DNS hostname resolution with subsequent network communication.
-- Verified TCP connection establishment through SYN, SYN-ACK and ACK packets.
-- Inspected readable HTTP request information where unencrypted traffic was present.
-- Observed TLS session establishment and encrypted HTTPS application traffic.
-- Analysed ICMP echo request/reply behaviour.
-- Used Wireshark statistics to summarise endpoints, conversations and protocol distribution.
-- Demonstrated how packet-level evidence can support security investigation and network troubleshooting.
+## Suspicious traffic case
 
-## Simulated Suspicious Traffic Case Study
+I used a second controlled capture to investigate a Windows workstation named JPtest1.
 
-A second analysis exercise was added to apply the same Wireshark methodology to suspicious network behaviour.
+The case includes a short TCP service scan, DNS activity tied to later connections, repeated TLS sessions to one destination, timing analysis and follow-up endpoint checks.
 
-[View the simulated suspicious traffic investigation](./synthetic-suspicious-traffic-scenario.md)
+[Read the suspicious traffic investigation](./synthetic-suspicious-traffic-scenario.md)
 
-This case covers:
+## Skills covered
 
-- TCP SYN scan identification
-- rapid multi-port reconnaissance
-- recurring DNS activity
-- periodic outbound TLS sessions
-- beacon-like timing analysis
-- evidence-versus-inference reasoning
-- MITRE ATT&CK mapping
-- investigation and escalation recommendations
-
-> The suspicious case uses synthetic lab values and is intentionally labelled as simulated. It is designed to demonstrate analysis methodology rather than claim a real compromise.
-
-## Security Operations Relevance
-
-Packet analysis can support investigations involving:
-
-- suspicious outbound connections
-- command-and-control traffic
-- DNS anomalies
-- scanning and reconnaissance
-- unexpected services or ports
-- network performance issues
-- incident timeline reconstruction
-
-The main lesson from this exercise was that individual packets provide limited context by themselves. Stronger analysis comes from correlating DNS, TCP and application-layer behaviour across a complete communication sequence.
-
-## Skills Demonstrated
-
-- Network traffic analysis
-- Packet inspection
-- TCP/IP networking
+- Wireshark
+- TCP/IP
 - DNS analysis
-- HTTP analysis
-- TLS/HTTPS analysis
-- Protocol filtering
-- Network troubleshooting
-- Security investigation fundamentals
-- Technical documentation
-
-## Lessons Learned
-
-This project strengthened my understanding of how normal network activity appears at packet level. It reinforced the relationship between DNS resolution, TCP connection establishment and application-layer communication.
-
-It also demonstrated an important security-analysis distinction: encryption can prevent direct inspection of application payloads while still leaving useful network metadata available for investigation.
-
-## Future Improvements
-
-Future iterations of this lab will extend the same methodology into more security-focused traffic analysis, including:
-
-- suspicious DNS behaviour
-- port-scan identification
-- authentication-related traffic
-- abnormal outbound connections
-- PCAP reconstruction and timeline analysis
-- Zeek log correlation
-- detection of known malicious network patterns
-
-## Evidence
-
-Screenshots are stored in the `screenshots/` directory.
-
-The evidence set is designed to show the investigation rather than simply prove that Wireshark was installed. Each screenshot should clearly demonstrate a specific observation referenced in this report.
+- HTTP and TLS analysis
+- packet filtering
+- network conversations
+- service-scan identification
+- traffic baselining
+- incident triage
+- network troubleshooting
