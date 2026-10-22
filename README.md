@@ -1,109 +1,126 @@
-# Hi, I'm Jithin Patrick 👋
+# Jithin Patrick
 
-### Cyber Security | Security Operations | Incident Response | Network Security
+**Cybersecurity | Security Operations | Incident Response | Network & Service Assurance**
 
-<p>
-  <img src="https://img.shields.io/badge/CompTIA-Security%2B-EA3E23?style=for-the-badge&logo=comptia&logoColor=white" />
-  <img src="https://img.shields.io/badge/Microsoft-SC--200_In_Progress-0078D4?style=for-the-badge&logo=microsoft&logoColor=white" />
-  <img src="https://img.shields.io/badge/ITIL-4_Foundation-5A2CA0?style=for-the-badge" />
-  <img src="https://img.shields.io/badge/VMware-SD--WAN_Foundation-607078?style=for-the-badge&logo=vmware&logoColor=white" />
-</p>
+Sydney, Australia  
+[LinkedIn](https://linkedin.com/in/jithin-p-818708119) · [Email](mailto:jithinpatrick63@gmail.com)
 
-## 🎯 About Me
+## Professional Profile
 
-I am an IT operations professional moving further into dedicated cybersecurity and security operations roles, with two years of enterprise Network Support, Technical Support and Service Assurance experience at Macquarie Technology Group.
+IT operations professional transitioning into dedicated cybersecurity and security operations roles, with two years of 24/7 enterprise Network Support, Technical Support and Service Assurance experience at Macquarie Technology Group.
 
-My background includes incident triage, high-severity outage coordination, network troubleshooting, service assurance and customer-facing technical support across an environment supporting 7,000+ customer sites. I have worked with VMware SD-WAN, FortiGate, ServiceNow, Microsoft 365, Active Directory, VPN/MFA, Wireshark and Windows/Linux systems.
+My background combines incident triage, network troubleshooting, major incident coordination, service assurance and customer-facing technical support across a large enterprise environment supporting 7,000+ customer sites. I have worked with VMware SD-WAN, FortiGate, ServiceNow, Active Directory, Microsoft 365, VPN/MFA, Wireshark and Windows/Linux systems.
 
-My current focus is blue-team security operations: Microsoft Sentinel, KQL, Sysmon, Windows event telemetry, packet analysis, incident investigation, detection logic and MITRE ATT&CK based analysis.
+I am now building deeper blue-team capability through hands-on work with Microsoft Sentinel, KQL, Sysmon, Windows event telemetry, packet analysis, incident investigation and MITRE ATT&CK based analysis.
 
-## 🛡️ Security & Operations Tools
+## Career Highlights
 
-### SIEM / Detection
-<p>
-  <img src="https://img.shields.io/badge/Microsoft_Sentinel-0078D4?style=for-the-badge&logo=microsoft&logoColor=white" />
-  <img src="https://img.shields.io/badge/KQL-512BD4?style=for-the-badge&logo=microsoftazure&logoColor=white" />
-  <img src="https://img.shields.io/badge/Sysmon-5E5E5E?style=for-the-badge&logo=windows&logoColor=white" />
-</p>
+- Two years of enterprise Network Support, Technical Support and Service Assurance experience in a 24/7 environment.
+- Supported network and service operations across 7,000+ customer sites.
+- Managed high-volume incident and service request queues, averaging 80+ ticket and incident touches per day.
+- Coordinated high-severity incidents, escalations and service recovery across engineering teams, carriers and vendors.
+- Worked with Telstra, Optus, Superloop and NBN on carrier and service escalations.
+- Performed first-line investigation of network and security-relevant events using telemetry, logs and packet captures.
+- Supported an overnight cyber-related operational incident, coordinating technical escalations and service recovery activity.
+- Backed by 8+ years of customer-facing support experience.
 
-### Network / Security
-<p>
-  <img src="https://img.shields.io/badge/Wireshark-1679A7?style=for-the-badge&logo=wireshark&logoColor=white" />
-  <img src="https://img.shields.io/badge/FortiGate-EE3124?style=for-the-badge&logo=fortinet&logoColor=white" />
-  <img src="https://img.shields.io/badge/VMware_SD--WAN-607078?style=for-the-badge&logo=vmware&logoColor=white" />
-  <img src="https://img.shields.io/badge/TCP%2FIP-Networking-1F6FEB?style=for-the-badge" />
-</p>
+## Security Operations Portfolio
 
-### Systems / Operations
-<p>
-  <img src="https://img.shields.io/badge/Windows-0078D6?style=for-the-badge&logo=windows&logoColor=white" />
-  <img src="https://img.shields.io/badge/Linux-FCC624?style=for-the-badge&logo=linux&logoColor=black" />
-  <img src="https://img.shields.io/badge/Active_Directory-0078D4?style=for-the-badge&logo=microsoft&logoColor=white" />
-  <img src="https://img.shields.io/badge/ServiceNow-81B5A1?style=for-the-badge&logo=servicenow&logoColor=white" />
-</p>
+| Project | Focus | Tools |
+|---|---|---|
+| [Wireshark Traffic Analysis](./01-wireshark-traffic-analysis/) | Packet capture, protocol analysis, suspicious traffic investigation | Wireshark, TCP/IP, DNS, TLS |
+| [Windows Endpoint Investigation](./02-windows-endpoint-investigation/) | Endpoint telemetry, process correlation, persistence analysis | Sysmon, Event Viewer, PowerShell |
+| [Microsoft Sentinel KQL Investigation](./03-microsoft-sentinel-kql-investigation/) | Centralised log analysis, KQL hunting and event correlation | Microsoft Sentinel, Log Analytics, KQL |
 
-## 📜 Certifications & Professional Development
+### Investigation Progression
 
-### Completed
-<p>
-  <img src="https://img.shields.io/badge/CompTIA-Security%2B-EA3E23?style=for-the-badge&logo=comptia&logoColor=white" />
-  <img src="https://img.shields.io/badge/ITIL-4_Foundation-5A2CA0?style=for-the-badge" />
-  <img src="https://img.shields.io/badge/VMware-SD--WAN_Foundation-607078?style=for-the-badge&logo=vmware&logoColor=white" />
-</p>
+The projects are designed to show the same type of activity from different analyst perspectives:
 
-**Cisco Networking Academy / CCNA curriculum certificates**
-- Introduction to Networks
-- Switching, Routing, and Wireless Essentials
-- Enterprise Networking, Security, and Automation
-- Applying Network Security
+```text
+Network traffic
+      ↓
+Endpoint telemetry
+      ↓
+Centralised SIEM investigation
+      ↓
+Detection and hunting logic
+```
 
-### In Progress
+This progression demonstrates how packet-level evidence, endpoint events and SIEM queries can be correlated during an investigation.
+
+## Technical Skills
+
+| Area | Technologies / Skills |
+|---|---|
+| Security Operations | Microsoft Sentinel, Microsoft Defender fundamentals, SIEM/EDR concepts, IDS/IPS, alert triage, incident investigation, MITRE ATT&CK |
+| Detection & Analysis | KQL, Sysmon, Windows Event Logs, log correlation, packet analysis, threat hunting fundamentals, detection logic |
+| Network Security | FortiGate, VMware SD-WAN, Wireshark, TCP/IP, DNS, DHCP, VPN, LAN/WAN, routing and switching |
+| Systems & Identity | Windows 10/11, Linux, Active Directory, Microsoft 365, MFA, RBAC, endpoint support |
+| IT Operations | ServiceNow ITSM, P1/P2 incident coordination, SLA management, RCA, escalation, technical documentation |
+| Scripting | PowerShell, Bash and Python fundamentals |
+| Frameworks | MITRE ATT&CK, NIST CSF, CIS Controls and ISO 27001 awareness |
+
+## Certifications
+
+**Completed**
+- CompTIA Security+
+- ITIL 4 Foundation
+- VMware SD-WAN Foundation
+- Cisco Networking Academy — Introduction to Networks
+- Cisco Networking Academy — Switching, Routing, and Wireless Essentials
+- Cisco Networking Academy — Enterprise Networking, Security, and Automation
+- Cisco Networking Academy — Applying Network Security
+
+**In Progress**
 - Microsoft SC-200 Security Operations Analyst
 
-## 🎓 Education
+[View certification details](./docs/certifications.md)
 
-- **Bachelor of Science in Information Technology, Cybersecurity & Networking** — University of Technology Sydney, Distinction
-- **Diploma of Information Technology** — UTS College, Distinction
+## Education
 
-## 🚀 Security Operations Projects
+**University of Technology Sydney**  
+Bachelor of Science in Information Technology, Cybersecurity & Networking — **Distinction**
 
-| # | Project | Focus | Tools | Status |
-|---|---|---|---|---|
-| 01 | [Wireshark Traffic Analysis](./01-wireshark-traffic-analysis/) | Network traffic analysis and protocol investigation | Wireshark, Windows 11 | Completed |
-| 02 | [Windows Endpoint Investigation](./02-windows-endpoint-investigation/) | Sysmon event correlation and endpoint triage | Sysmon, Event Viewer, PowerShell | Completed |
-| 03 | [Microsoft Sentinel KQL Investigation](./03-microsoft-sentinel-kql-investigation/) | Centralised Sysmon analysis and KQL hunting | Microsoft Sentinel, Log Analytics, KQL | Completed |
+**UTS College**  
+Diploma of Information Technology — **Distinction**
 
-## 🧠 Cybersecurity Focus
+## Professional Experience
 
-- Security Operations and Incident Triage
+### Macquarie Technology Group
+**Network Support & Technical Support | Service Assurance**  
+*March 2023 – February 2025*
+
+- Supported 24/7 enterprise network and service assurance operations across 7,000+ customer sites.
+- Triaged incidents and service requests, assessed impact and priority, performed first-line troubleshooting and escalated within SLA requirements.
+- Investigated network and security-relevant events using device telemetry, logs and packet captures.
+- Coordinated high-severity outages and maintained incident timelines, technical updates and stakeholder communications.
+- Troubleshot LAN/WAN, VPN, routing, switching, SD-WAN, fixed wireless and 4G failover issues.
+- Worked with VMware SD-WAN Orchestrator, FortiGate, ServiceNow, Active Directory, Microsoft 365 and Wireshark.
+- Coordinated escalations with Telstra, Optus, Superloop and NBN.
+
+[View professional background](./docs/professional-background.md)
+
+## Current Focus
+
+I am currently developing deeper capability in:
+
 - Microsoft Sentinel and KQL
-- Windows Endpoint Telemetry and Sysmon
-- Network Traffic Analysis with Wireshark
-- Detection Engineering Fundamentals
-- Incident Response and Event Correlation
-- Network Security and Troubleshooting
-- MITRE ATT&CK based investigation
+- Security monitoring and alert triage
+- Windows endpoint telemetry and Sysmon
+- Detection engineering fundamentals
+- Incident response and event correlation
+- Threat hunting methodology
+- Microsoft SC-200 preparation
 
-## 💼 Professional Background
+## Portfolio Standards
 
-**Macquarie Technology Group — Network Support & Technical Support | Service Assurance**  
-*March 2023 - February 2025*
+Each project in this repository follows the same approach:
 
-- Supported enterprise network and service assurance operations across 7,000+ customer sites.
-- Triaged high-volume incidents and service requests within SLA requirements.
-- Coordinated escalations across internal engineering teams, carriers and vendors including Telstra, Optus, Superloop and NBN.
-- Worked with VMware SD-WAN, FortiGate, ServiceNow, VPN, Active Directory, Microsoft 365 and Wireshark.
-- Supported major incident coordination and documented technical findings, timelines and recovery actions.
+1. Define the objective and investigation scope.
+2. Collect or generate authorised telemetry.
+3. Identify relevant events or network activity.
+4. Correlate evidence across available data sources.
+5. Document findings, limitations and analyst judgement.
+6. Identify appropriate remediation, containment or detection opportunities.
 
-## 🔎 Portfolio Method
-
-Each project follows the same investigation approach:
-
-1. Define the objective and scope.
-2. Generate or collect controlled telemetry.
-3. Filter and inspect relevant evidence.
-4. Correlate observations across protocols or event sources.
-5. Document findings and limitations.
-6. Identify security relevance and next steps.
-
-> All activity documented here is performed in controlled environments or against systems and traffic I am authorised to analyse.
+All activity in this repository is performed in controlled environments or against systems and traffic I am authorised to analyse.
