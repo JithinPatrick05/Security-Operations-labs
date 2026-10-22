@@ -1,4 +1,4 @@
-# Analyst Notes
+# Investigation Notes
 
 ## Starting point
 
@@ -60,7 +60,7 @@ Sysmon showed:
 
 The 5 hour 30 minute difference was expected for the local time zone and prevented the events from being incorrectly treated as unrelated.
 
-## Final triage position
+## Triage position
 
 If this were an unknown production host, I would escalate it because the endpoint evidence links one process to network communication and persistence-related activity.
 
