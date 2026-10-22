@@ -11,7 +11,7 @@ Completed IT service management certification covering service value, incident m
 ### Microsoft SC-200 Security Operations Analyst
 **Status: In Progress**
 
-Current study focuses on Microsoft Sentinel, Microsoft Defender, KQL, threat detection, incident investigation and security operations workflows.
+SC-200 preparation is extending existing hands-on experience with Microsoft Sentinel, Microsoft Defender, KQL, threat detection, incident investigation and security operations workflows.
 
 ## Networking and Infrastructure
 
@@ -29,14 +29,13 @@ Completed Cisco Networking Academy / CCNA curriculum certificates:
 
 These certificates support my networking foundation across TCP/IP, switching, routing, wireless, network security and enterprise infrastructure.
 
-## Current Development
+## Ongoing Upskilling
 
-Current learning is focused on:
+I already have hands-on experience across Microsoft Sentinel, KQL, Sysmon, Windows telemetry, incident investigation, phishing triage, IOC analysis and SOC documentation. I am continuing to deepen these skills through:
 
-- Microsoft Sentinel
-- KQL
-- Sysmon and Windows telemetry
-- Incident response
-- Detection engineering fundamentals
+- Microsoft SC-200 preparation
+- Detection engineering
 - Threat hunting
-- Microsoft SC-200
+- Incident response
+- SIEM and endpoint correlation
+- Blue-team investigation workflows
