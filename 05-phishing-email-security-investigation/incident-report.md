@@ -2,60 +2,72 @@
 
 ## Executive Summary
 
-Five simulated phishing reports were investigated using a SOC analyst workflow.
+Five suspicious email cases were reviewed using a SOC triage workflow covering message headers, sender identity, URL/domain indicators, attachment evidence, social engineering, severity and response recommendations.
 
-The cases covered:
-
-1. Microsoft 365 credential phishing
-2. Invoice-themed attachment delivery
-3. CEO / executive impersonation BEC
-4. Fake Okta security alert phishing
-5. Fake DocuSign document-review phishing
-
-The investigation focused on sender/domain analysis, URL and attachment indicators, impersonation, social-engineering technique, IOC extraction, likely attacker goal, verdict and response recommendations.
+The cases represented credential phishing, suspicious attachment delivery and business email compromise patterns.
 
 ## Scope
 
-The scope was limited to five simulated email reports. No production mailboxes, user accounts or endpoints were impacted.
+Evidence reviewed:
 
-## Findings
+- five `.eml` message files
+- message header fields
+- sender and return-path data
+- Received source IPs
+- SPF / DKIM / DMARC results recorded in the messages
+- one ZIP attachment
+- one extracted JavaScript file
+- MD5 / SHA-1 / SHA-256 hashes
+- archive listing and static strings output
 
-- Credential harvesting was the most common likely objective.
-- Typosquatting and lookalike domains were used to appear legitimate.
-- Urgency and fear appeared in several cases.
-- The BEC case demonstrated that a malicious email does not require a link or attachment.
-- The invoice case demonstrated attachment-based risk.
-- Brand trust was abused in Microsoft 365, Okta and DocuSign themes.
-- HTTPS was treated as transport encryption, not a trust indicator.
+## Key Findings
 
-## Impact
+1. The Microsoft 365 case failed SPF and DMARC and used a lookalike sender/domain.
+2. The invoice case passed SPF/DKIM/DMARC but still contained an unexpected ZIP with a JavaScript file.
+3. The BEC case passed authentication because it used Gmail, but the sender identity did not match the claimed executive role.
+4. The Okta case passed SPF/DMARC for its own lookalike domain, demonstrating that domain authentication does not prove brand legitimacy.
+5. The DocuSign case passed all three checks for its own sender domain but remained suspicious because the sender/domain represented a lookalike identity.
+6. The invoice ZIP SHA-256 extracted from the message matched the standalone ZIP evidence file.
+7. Static review of the JavaScript found a single `WScript.Echo` statement and no network, process-creation, file-write, obfuscation or credential-access behaviour.
 
-No real-world impact occurred because the cases were simulations.
+## Attachment Evidence
 
-Potential production impact from similar cases could include:
+```text
+Invoice_INV-88421.zip
+Size: 194 bytes
+SHA-256: c422f08c2dd655422a10c07a7fc2003fd289d97c9c31a08529f126ff61ad5465
 
-- credential theft
-- MFA/session theft
-- account takeover
-- malware execution
-- initial access
-- financial fraud
-- vendor/payment fraud
-- sensitive information disclosure
+Contains:
+Invoice_INV-88421.js
+Size: 54 bytes
+SHA-256: 75e36eab35c99f782389aa577544849f27f5fa960c49c005152f8d0f6720bdae
+```
 
-## Recommended SOC Response
+Static strings:
 
-- Block confirmed malicious sender/domain/URL indicators.
-- Search the mail environment for additional recipients.
-- Quarantine or remove matching messages.
-- Determine whether users clicked, replied, opened attachments or entered credentials.
-- Reset passwords and revoke sessions where credentials were submitted.
-- Review sign-in telemetry.
-- Review endpoint telemetry where attachments may have been executed.
-- Escalate to incident response for confirmed execution, account compromise or financial loss.
+```text
+WScript.Echo("Invoice INV-88421 - payment reminder");
+```
+
+## Impact Assessment
+
+No evidence in the reviewed files demonstrated credential submission, successful account takeover, malware execution, persistence or data exfiltration.
+
+The risk came from the social-engineering patterns, lookalike identities and the potential for user interaction.
+
+## Recommended SOC Actions
+
+- quarantine confirmed suspicious messages
+- search for additional recipients using sender, subject, URL, attachment name and hashes
+- block confirmed malicious indicators
+- determine whether users clicked, replied, opened attachments or submitted credentials
+- reset passwords and revoke sessions where credentials were entered
+- review identity logs
+- review endpoint telemetry where attachment execution is suspected
+- escalate to IR if compromise or malicious execution is confirmed
 
 ## Final Assessment
 
-The exercise demonstrated phishing triage, IOC extraction, credential-phishing analysis, attachment-risk assessment, BEC identification, analyst verdict writing and response planning.
+The investigation demonstrated how sender authentication, branding, user context and attachment evidence must be considered together.
 
-The scenarios were simulated, so conclusions were limited to the evidence supplied in each scenario rather than invented email-header or reputation data.
+Passing SPF/DKIM/DMARC was not treated as proof of legitimacy, and suspicious attachment types were not treated as proof of malware without technical evidence.
