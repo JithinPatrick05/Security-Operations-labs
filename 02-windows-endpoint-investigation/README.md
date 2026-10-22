@@ -1,6 +1,6 @@
 # Windows Endpoint Investigation - Sysmon
 
-> **Lab type:** Controlled endpoint investigation (in progress)  
+> **Lab type:** Completed controlled endpoint investigation  
 > **Host:** JPtest1  
 > **Operating system:** Windows 11  
 > **Data sources:** Sysmon, Windows Event Viewer  
@@ -14,7 +14,7 @@ This lab continues that investigation on the endpoint.
 
 Sysmon events showed that the traffic came from a PowerShell process launched from the user's desktop session. The same process queried the hostname seen in Wireshark, connected to the same remote IP over TCP/443 and wrote a small file under the Public profile. A registry Run value was also created for the same PowerShell command.
 
-The scenario below is the event chain I am reproducing in a controlled lab so I can practise correlating network and endpoint telemetry without using a live incident.
+The activity was generated in a controlled lab so I could practise correlating network and endpoint telemetry without using a live incident.
 
 ## Environment
 
@@ -307,3 +307,97 @@ The useful part of the exercise was the correlation between network and endpoint
 Wireshark showed **where the host was communicating**. Sysmon showed **which process was doing it**.
 
 Neither data source was as useful on its own as the two were together.
+
+
+## Detection opportunities
+
+After correlating the events, I noted a few conditions that would be useful for detection rather than relying on a single indicator.
+
+### PowerShell from a user-writable location
+
+A useful alert condition would be PowerShell executing a script from locations such as:
+
+~~~text
+C:\Users\Public\
+C:\Users\<user>\AppData\
+C:\ProgramData\
+~~~
+
+The path alone is not enough to call the activity malicious, but it becomes more useful when paired with suspicious command-line options or network activity.
+
+### PowerShell followed by outbound HTTPS
+
+In this case, the sequence was:
+
+~~~text
+Event ID 1  -> powershell.exe created
+Event ID 22 -> DNS query
+Event ID 3  -> outbound TCP/443
+~~~
+
+That sequence is stronger than any one event by itself.
+
+### Run key modification
+
+A user Run key changed by PowerShell would be worth reviewing, especially if the configured command points to a script in a user-writable directory.
+
+Useful registry path:
+
+~~~text
+Software\Microsoft\Windows\CurrentVersion\Run
+~~~
+
+### Repeated connections to the same destination
+
+Six connections to the same host at an average interval of 60.04 seconds were visible in both Wireshark and Sysmon.
+
+The timing pattern would be useful as a hunting lead when combined with process context.
+
+## Containment and remediation
+
+If this had been an unauthorised production event, my response would be:
+
+1. Preserve the relevant Sysmon and Windows event logs.
+2. Record the process tree, command line, destination IP and DNS name.
+3. Isolate the endpoint if additional evidence confirms malicious activity.
+4. Stop the responsible process after evidence collection.
+5. Remove the Run key persistence entry.
+6. Quarantine the script and related file.
+7. Block the confirmed malicious destination at the appropriate control point.
+8. Search other endpoints for the same script path, domain and destination.
+9. Reset affected credentials if there is evidence they were exposed.
+10. Re-run endpoint and network checks before returning the host to service.
+
+## Lab cleanup
+
+Because this was a controlled exercise, the persistence and test artefacts should be removed after the investigation.
+
+Items to remove:
+
+~~~text
+C:\Users\Public\Libraries\sync-check.ps1
+C:\Users\Public\Libraries\jp-cache.dat
+HKCU\Software\Microsoft\Windows\CurrentVersion\Run\UpdateCheck
+~~~
+
+The endpoint should then be checked to confirm the repeated outbound connection no longer occurs.
+
+## Final assessment
+
+**Disposition: Suspicious activity confirmed within the controlled lab scenario**
+
+The important finding was not simply that PowerShell was present. The same ProcessGuid and PID linked process creation, file creation, DNS resolution, network communication and registry persistence.
+
+Wireshark first identified a repeated network pattern. Sysmon then supplied the missing process and user context.
+
+If the same chain appeared on an unmanaged production workstation without an approved explanation, I would treat it as a high-priority endpoint investigation.
+
+## Lessons learned
+
+- Network telemetry can identify a suspicious pattern without identifying the process behind it.
+- Sysmon Event ID 3 is useful for tying a remote connection back to a process.
+- ProcessGuid is a better correlation key than PID when reviewing events over time.
+- DNS events provide a useful link between a hostname and later network activity.
+- PowerShell should be judged in context rather than treated as malicious by default.
+- Persistence activity significantly changes the risk of an otherwise ambiguous process.
+- Time-zone differences need to be normalised before correlating endpoint and network data.
