@@ -1,4 +1,4 @@
-# Cybersecurity Lab: How to Investigate PCAPs for SOC Analysts
+# Cybersecurity Lab: How to Investigate PCAPs as a SOC Analyst
 
 **Status:** Completed — controlled training dataset  
 **Date:** 25 October 2026  
