@@ -1,0 +1,45 @@
+// Microsoft Sentinel KQL templates for WindowsEvent ingestion.
+// The provided lab uses an exported CSV. No live workspace queries were executed.
+// XML parser mappings for EventData may vary across connectors.
+
+// Query 1. Find task creation events and review the task action.
+WindowsEvent
+| where TimeGenerated between (datetime(2026-10-29T13:00:00Z) .. datetime(2026-10-29T15:30:00Z))
+| where Computer =~ "LABWS02" and EventID == 4698
+| extend TaskName = tostring(EventData.TaskName),
+         TaskContent = tostring(EventData.TaskContent)
+| project TimeGenerated, Computer, TaskName, TaskContent
+
+// Query 2. Show the suspicious process and its parent.
+WindowsEvent
+| where Computer =~ "LABWS02"
+| where Channel == "Microsoft-Windows-Sysmon/Operational" and EventID == 1
+| extend Image = tostring(EventData.Image), ParentImage = tostring(EventData.ParentImage),
+         CommandLine = tostring(EventData.CommandLine),
+         ProcessGuid = tostring(EventData.ProcessGuid)
+| where Image endswith @"\powershell.exe" or Image endswith @"\schtasks.exe"
+| project TimeGenerated, Computer, Image, ParentImage, CommandLine, ProcessGuid
+
+// Query 3. Find the three outbound network events.
+WindowsEvent
+| where Computer =~ "LABWS02"
+| where Channel == "Microsoft-Windows-Sysmon/Operational" and EventID == 3
+| extend ProcessGuid = tostring(EventData.ProcessGuid),
+         DestinationIp = tostring(EventData.DestinationIp),
+         DestinationPort = tostring(EventData.DestinationPort),
+         Image = tostring(EventData.Image)
+| where DestinationIp == "203.0.113.92" and DestinationPort == "443"
+| project TimeGenerated, ProcessGuid, Image, DestinationIp, DestinationPort
+| order by TimeGenerated asc
+
+// Query 4. Check process GUID and DNS correlation.
+WindowsEvent
+| where Computer =~ "LABWS02"
+| where Channel == "Microsoft-Windows-Sysmon/Operational" and EventID in (1, 3, 22)
+| extend ProcessGuid = tostring(EventData.ProcessGuid),
+         Image = tostring(EventData.Image),
+         QueryName = tostring(EventData.QueryName),
+         DestinationIp = tostring(EventData.DestinationIp)
+| where ProcessGuid in ("{LAB-P001}", "{LAB-P002}", "{LAB-P003}")
+| project TimeGenerated, EventID, ProcessGuid, Image, QueryName, DestinationIp
+| order by TimeGenerated asc

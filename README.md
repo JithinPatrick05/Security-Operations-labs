@@ -34,6 +34,8 @@ I have hands-on blue-team capability across Microsoft Sentinel, KQL, Sysmon, Win
 | [SOC Ticket Writing & Shift Handoff](./04-soc-ticket-escalation-handoff/) | SOC documentation, severity, escalation and handoff | Elastic, Kibana, Sysmon, Windows Security |
 | [Phishing & Email Security Investigation](./05-phishing-email-security-investigation/) | Phishing triage, IOC extraction, BEC and response planning | Email analysis, IOC triage, SOC documentation |
 | [PCAP Investigation for SOC Analysts](./06-pcap-investigation-for-soc-analysts/) | PCAP triage, DNS/HTTP/TCP analysis, IOC extraction and SOC escalation | Wireshark, tshark, TCP/IP, DNS, HTTP |
+| [Entra ID Password Spray Investigation](./07IdentityPasswordSprayInvestigation/) | Identity alert triage, multiple account authentication failures and MFA investigation | Python, Entra ID, KQL |
+| [Scheduled Task Persistence Investigation](./08ScheduledTaskPersistenceReview/) | Windows scheduled task registration, process correlation and outbound activity | Sysmon, Windows Security, Python, KQL |
 
 ### Investigation Progression
 

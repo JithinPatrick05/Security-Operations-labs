@@ -1,0 +1,21 @@
+Case 08 scheduled task investigation
+Evidence type: Controlled synthetic Windows event export
+Date: 29 October 2026
+Time zone: UTC
+
+Total events: 15
+Host: LABWS02
+CacheMonitor scheduled task creations: 1
+Unrelated task creations: 1
+PowerShell starts from taskeng.exe: 3
+DNS queries for syncdesk.example: 3
+Connections to 203.0.113.92 port 443: 3
+Process GUIDs with a matching launch, DNS event and connection: 3
+Task creation: 2026-10-29T13:20:03Z
+First observed task process: 2026-10-29T13:50:03Z
+Repeat process interval: 30 minutes
+
+Evidence interpretation:
+The task creation and three later PowerShell executions form one consistent chain.
+The repeated DNS and network events match the three PowerShell process GUIDs.
+No file contents, transferred bytes, user approval or exfiltration proof is present.

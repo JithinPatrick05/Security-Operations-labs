@@ -1,0 +1,16 @@
+TimeGenerated,Computer,LogSource,EventID,User,ProcessGuid,ParentProcessGuid,ProcessId,Image,ParentImage,CommandLine,TargetFilename,TaskName,TaskAction,QueryName,QueryResults,DestinationIp,DestinationPort
+2026-10-29T13:20:00Z,LABWS02,Sysmon,1,LABWS02\labuser,{LAB-A001},,4120,C:\Users\Public\Tools\cachehelper.exe,C:\Windows\explorer.exe,"""C:\Users\Public\Tools\cachehelper.exe""",,,,,,,
+2026-10-29T13:20:01Z,LABWS02,Sysmon,11,LABWS02\labuser,{LAB-A001},,4120,C:\Users\Public\Tools\cachehelper.exe,,,C:\Users\Public\Libraries\cache.ps1,,,,,,
+2026-10-29T13:20:02Z,LABWS02,Sysmon,1,LABWS02\labuser,{LAB-A002},{LAB-A001},4136,C:\Windows\System32\schtasks.exe,C:\Users\Public\Tools\cachehelper.exe,"schtasks /Create /TN CacheMonitor /SC MINUTE /MO 30 /TR ""powershell.exe -NoProfile -File ""C:\Users\Public\Libraries\cache.ps1""""",,,,,,,
+2026-10-29T13:20:03Z,LABWS02,Security,4698,LABWS02\labuser,,,,,,,,\CacheMonitor,"powershell.exe -NoProfile -File ""C:\Users\Public\Libraries\cache.ps1""",,,,
+2026-10-29T13:20:04Z,LABWS02,Sysmon,11,LABWS02\labuser,{LAB-A002},,4136,C:\Windows\System32\schtasks.exe,,,C:\Windows\System32\Tasks\CacheMonitor,,,,,,
+2026-10-29T13:50:03Z,LABWS02,Sysmon,1,LABWS02\labuser,{LAB-P001},{LAB-TASK01},4450,C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe,C:\Windows\System32\taskeng.exe,"powershell.exe -NoProfile -File ""C:\Users\Public\Libraries\cache.ps1""",,,,,,,
+2026-10-29T13:50:04Z,LABWS02,Sysmon,22,LABWS02\labuser,{LAB-P001},,4450,C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe,,,,,,syncdesk.example,203.0.113.92,,
+2026-10-29T13:50:05Z,LABWS02,Sysmon,3,LABWS02\labuser,{LAB-P001},,4450,C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe,,,,,,,,203.0.113.92,443
+2026-10-29T14:20:03Z,LABWS02,Sysmon,1,LABWS02\labuser,{LAB-P002},{LAB-TASK01},4610,C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe,C:\Windows\System32\taskeng.exe,"powershell.exe -NoProfile -File ""C:\Users\Public\Libraries\cache.ps1""",,,,,,,
+2026-10-29T14:20:04Z,LABWS02,Sysmon,22,LABWS02\labuser,{LAB-P002},,4610,C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe,,,,,,syncdesk.example,203.0.113.92,,
+2026-10-29T14:20:05Z,LABWS02,Sysmon,3,LABWS02\labuser,{LAB-P002},,4610,C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe,,,,,,,,203.0.113.92,443
+2026-10-29T14:50:03Z,LABWS02,Sysmon,1,LABWS02\labuser,{LAB-P003},{LAB-TASK01},4761,C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe,C:\Windows\System32\taskeng.exe,"powershell.exe -NoProfile -File ""C:\Users\Public\Libraries\cache.ps1""",,,,,,,
+2026-10-29T14:50:04Z,LABWS02,Sysmon,22,LABWS02\labuser,{LAB-P003},,4761,C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe,,,,,,syncdesk.example,203.0.113.92,,
+2026-10-29T14:50:05Z,LABWS02,Sysmon,3,LABWS02\labuser,{LAB-P003},,4761,C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe,,,,,,,,203.0.113.92,443
+2026-10-29T15:02:01Z,LABWS02,Security,4698,NT AUTHORITY\SYSTEM,,,,,,,,\SystemMaintenance,C:\Windows\System32\cleanmgr.exe,,,,
