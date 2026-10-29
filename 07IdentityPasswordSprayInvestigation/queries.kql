@@ -1,0 +1,37 @@
+// Queries for an actual Entra SigninLogs table in Microsoft Sentinel.
+// These were prepared for the lab and have not been run against a tenant.
+
+// Query 1. Summarise the suspicious source.
+SigninLogs
+| where TimeGenerated between (datetime(2026-10-29T09:00:00Z) .. datetime(2026-10-29T09:20:00Z))
+| where IPAddress == "203.0.113.45"
+| summarize Attempts = count(), Users = dcount(UserPrincipalName),
+            InvalidPasswords = countif(ResultType == "50126"),
+            FailedMfa = countif(ResultType == "500121"),
+            Successes = countif(ResultType == "0"),
+            FirstSeen = min(TimeGenerated), LastSeen = max(TimeGenerated)
+  by IPAddress
+
+// Query 2. Look at every result and correlation ID.
+SigninLogs
+| where TimeGenerated between (datetime(2026-10-29T09:00:00Z) .. datetime(2026-10-29T09:20:00Z))
+| where IPAddress == "203.0.113.45"
+| project TimeGenerated, UserPrincipalName, IPAddress, AppDisplayName,
+          ResultType, AuthenticationRequirement, ConditionalAccessStatus, CorrelationId
+| order by TimeGenerated asc
+
+// Query 3. Check the targeted account from all source addresses.
+SigninLogs
+| where TimeGenerated between (datetime(2026-10-29T08:30:00Z) .. datetime(2026-10-29T10:00:00Z))
+| where UserPrincipalName =~ "maya@contoso.example"
+| project TimeGenerated, IPAddress, ResultType, AuthenticationRequirement,
+          ConditionalAccessStatus, CorrelationId
+| order by TimeGenerated asc
+
+// Query 4. Detection hunt requiring baseline tuning.
+SigninLogs
+| where TimeGenerated > ago(1d)
+| where ResultType == "50126"
+| summarize Attempts = count(), Accounts = dcount(UserPrincipalName)
+  by IPAddress, bin(TimeGenerated, 15m)
+| where Attempts >= 20 and Accounts >= 10

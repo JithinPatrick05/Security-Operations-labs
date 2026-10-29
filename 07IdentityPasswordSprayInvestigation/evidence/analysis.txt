@@ -1,0 +1,21 @@
+Case 07 identity investigation
+Evidence type: Controlled synthetic training export
+Date: 29 October 2026
+Time zone: UTC
+
+Total sign in records: 26
+Suspect source: 203.0.113.45
+Suspect source records: 25
+Distinct targeted accounts: 12
+Invalid password results 50126: 24
+MFA failure results 500121: 1
+Successful results from suspect source: 0
+First suspect event: 2026-10-29T09:02:10Z
+Last suspect event: 2026-10-29T09:10:05Z
+Other source 198.51.100.44 successful sign ins: 1
+
+Evidence interpretation:
+The source attempted authentication across 12 accounts in two passes.
+The MFA failure belongs to maya@contoso.example.
+The success from another IP must not be attributed to the suspect source.
+An MFA failure does not establish a completed account takeover.

@@ -1,0 +1,27 @@
+TimeGenerated,UserPrincipalName,IPAddress,AppDisplayName,ResultType,ResultDescription,AuthenticationRequirement,ConditionalAccessStatus,CorrelationId,ClientAppUsed
+2026-10-29T09:02:10Z,alice@contoso.example,203.0.113.45,Microsoft 365,50126,Invalid username or password,singleFactorAuthentication,notApplied,CASE07F01,Browser
+2026-10-29T09:02:20Z,ben@contoso.example,203.0.113.45,Microsoft 365,50126,Invalid username or password,singleFactorAuthentication,notApplied,CASE07F02,Browser
+2026-10-29T09:02:30Z,carla@contoso.example,203.0.113.45,Microsoft 365,50126,Invalid username or password,singleFactorAuthentication,notApplied,CASE07F03,Browser
+2026-10-29T09:02:40Z,dana@contoso.example,203.0.113.45,Microsoft 365,50126,Invalid username or password,singleFactorAuthentication,notApplied,CASE07F04,Browser
+2026-10-29T09:02:50Z,elena@contoso.example,203.0.113.45,Microsoft 365,50126,Invalid username or password,singleFactorAuthentication,notApplied,CASE07F05,Browser
+2026-10-29T09:03:00Z,farah@contoso.example,203.0.113.45,Microsoft 365,50126,Invalid username or password,singleFactorAuthentication,notApplied,CASE07F06,Browser
+2026-10-29T09:03:10Z,grace@contoso.example,203.0.113.45,Microsoft 365,50126,Invalid username or password,singleFactorAuthentication,notApplied,CASE07F07,Browser
+2026-10-29T09:03:20Z,harry@contoso.example,203.0.113.45,Microsoft 365,50126,Invalid username or password,singleFactorAuthentication,notApplied,CASE07F08,Browser
+2026-10-29T09:03:30Z,isla@contoso.example,203.0.113.45,Microsoft 365,50126,Invalid username or password,singleFactorAuthentication,notApplied,CASE07F09,Browser
+2026-10-29T09:03:40Z,james@contoso.example,203.0.113.45,Microsoft 365,50126,Invalid username or password,singleFactorAuthentication,notApplied,CASE07F10,Browser
+2026-10-29T09:03:50Z,kiran@contoso.example,203.0.113.45,Microsoft 365,50126,Invalid username or password,singleFactorAuthentication,notApplied,CASE07F11,Browser
+2026-10-29T09:04:00Z,maya@contoso.example,203.0.113.45,Microsoft 365,50126,Invalid username or password,singleFactorAuthentication,notApplied,CASE07F12,Browser
+2026-10-29T09:08:10Z,alice@contoso.example,203.0.113.45,Microsoft 365,50126,Invalid username or password,singleFactorAuthentication,notApplied,CASE07F13,Browser
+2026-10-29T09:08:20Z,ben@contoso.example,203.0.113.45,Microsoft 365,50126,Invalid username or password,singleFactorAuthentication,notApplied,CASE07F14,Browser
+2026-10-29T09:08:30Z,carla@contoso.example,203.0.113.45,Microsoft 365,50126,Invalid username or password,singleFactorAuthentication,notApplied,CASE07F15,Browser
+2026-10-29T09:08:40Z,dana@contoso.example,203.0.113.45,Microsoft 365,50126,Invalid username or password,singleFactorAuthentication,notApplied,CASE07F16,Browser
+2026-10-29T09:08:50Z,elena@contoso.example,203.0.113.45,Microsoft 365,50126,Invalid username or password,singleFactorAuthentication,notApplied,CASE07F17,Browser
+2026-10-29T09:09:00Z,farah@contoso.example,203.0.113.45,Microsoft 365,50126,Invalid username or password,singleFactorAuthentication,notApplied,CASE07F18,Browser
+2026-10-29T09:09:10Z,grace@contoso.example,203.0.113.45,Microsoft 365,50126,Invalid username or password,singleFactorAuthentication,notApplied,CASE07F19,Browser
+2026-10-29T09:09:20Z,harry@contoso.example,203.0.113.45,Microsoft 365,50126,Invalid username or password,singleFactorAuthentication,notApplied,CASE07F20,Browser
+2026-10-29T09:09:30Z,isla@contoso.example,203.0.113.45,Microsoft 365,50126,Invalid username or password,singleFactorAuthentication,notApplied,CASE07F21,Browser
+2026-10-29T09:09:40Z,james@contoso.example,203.0.113.45,Microsoft 365,50126,Invalid username or password,singleFactorAuthentication,notApplied,CASE07F22,Browser
+2026-10-29T09:09:50Z,kiran@contoso.example,203.0.113.45,Microsoft 365,50126,Invalid username or password,singleFactorAuthentication,notApplied,CASE07F23,Browser
+2026-10-29T09:10:00Z,maya@contoso.example,203.0.113.45,Microsoft 365,50126,Invalid username or password,singleFactorAuthentication,notApplied,CASE07F24,Browser
+2026-10-29T09:10:05Z,maya@contoso.example,203.0.113.45,Microsoft 365,500121,MFA authentication failed or not completed,multiFactorAuthentication,failure,CASE07M01,Browser
+2026-10-29T09:15:19Z,maya@contoso.example,198.51.100.44,Microsoft 365,0,Success,multiFactorAuthentication,success,CASE07S01,Browser
