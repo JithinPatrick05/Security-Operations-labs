@@ -36,7 +36,7 @@ I have hands-on blue-team capability across Microsoft Sentinel, KQL, Sysmon, Win
 | [PCAP Investigation for SOC Analysts](./06-pcap-investigation-for-soc-analysts/) | PCAP triage, DNS/HTTP/TCP analysis, IOC extraction and SOC escalation | Wireshark, tshark, TCP/IP, DNS, HTTP |
 | [Entra ID Password Spray Investigation](./07IdentityPasswordSprayInvestigation/) | Identity alert triage, multiple account authentication failures and MFA investigation | Python, Entra ID, KQL |
 | [Scheduled Task Persistence Investigation](./08ScheduledTaskPersistenceReview/) | Windows scheduled task registration, process correlation and outbound activity | Sysmon, Windows Security, Python, KQL |
-| [Cloud Account Compromise Investigation](./09CloudAccountCompromiseInvestigation/) | Entra ID risky sign-in, mailbox forwarding, tenant scoping and containment | Microsoft Sentinel, Entra ID, Microsoft 365 Audit, Python, KQL |
+| [Cloud Account Compromise Investigation](./09CloudAccountCompromiseInvestigation/) | Entra ID risky sign in, mailbox forwarding, tenant scoping and containment | Microsoft Sentinel, Entra ID, Microsoft 365 Audit, Python, KQL |
 
 ### Investigation Progression
 
