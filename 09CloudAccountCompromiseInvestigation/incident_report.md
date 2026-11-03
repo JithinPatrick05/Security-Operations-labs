@@ -6,8 +6,6 @@ I investigated a high risk Entra ID sign in involving a finance mailbox.
 
 The user normally authenticated from Sydney on `FINLT07`. A successful Amsterdam sign in occurred sixteen minutes after the last known Sydney session. Within minutes, the same source created an inbox forwarding rule and configured mailbox forwarding to an external recipient.
 
-The company domain, public IP addresses and external mailbox address have been removed from this public portfolio copy.
-
 ## Classification
 
 **Incident type:** Cloud account compromise  
@@ -62,4 +60,3 @@ I left message trace, MFA registration review and endpoint review as follow up a
 
 The same source attempted the AP Manager and Payroll accounts. Neither account showed a successful authentication in the evidence I reviewed.
 
-> Public portfolio note: sensitive identifiers have been removed. This case was completed in a controlled SOC environment using representative enterprise telemetry.
