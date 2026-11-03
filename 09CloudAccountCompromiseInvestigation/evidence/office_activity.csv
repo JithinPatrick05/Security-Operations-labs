@@ -1,7 +1,7 @@
-timestamp_utc,user,actor,operation,client_ip,object,parameters,result,notes
-2026-11-04T08:24:09Z,finance.manager@lab.example,finance.manager@lab.example,New-InboxRule,203.0.113.44,InvoicesArchive,ForwardTo archive.notice@example.net,Success,External forwarding rule created
-2026-11-04T08:25:31Z,finance.manager@lab.example,finance.manager@lab.example,Set-Mailbox,203.0.113.44,finance.manager@lab.example,ForwardingSmtpAddress archive.notice@example.net,Success,Mailbox level forwarding added
-2026-11-04T08:33:42Z,finance.manager@lab.example,security.admin@lab.example,Remove-InboxRule,198.51.100.10,InvoicesArchive,Remove forwarding rule,Success,Containment action
-2026-11-04T08:34:15Z,finance.manager@lab.example,security.admin@lab.example,Set-Mailbox,198.51.100.10,finance.manager@lab.example,Clear ForwardingSmtpAddress,Success,Containment action
-2026-11-04T08:35:06Z,finance.manager@lab.example,security.admin@lab.example,Revoke-Sessions,198.51.100.10,finance.manager@lab.example,Revoke active sessions,Success,Containment action
-2026-11-04T08:38:27Z,finance.manager@lab.example,security.admin@lab.example,Reset-Password,198.51.100.10,finance.manager@lab.example,Force password reset,Success,Containment action
+timestamp_utc,user,actor,operation,source,object,parameters,result,notes
+2026-11-04T08:24:09Z,Finance Manager,Finance Manager,New-InboxRule,Public IP redacted,InvoicesArchive,ForwardTo external mailbox redacted,Success,External forwarding rule created
+2026-11-04T08:25:31Z,Finance Manager,Finance Manager,Set-Mailbox,Public IP redacted,Finance Manager,ForwardingSmtpAddress external mailbox redacted,Success,Mailbox forwarding added
+2026-11-04T08:33:42Z,Finance Manager,Security Administrator,Remove-InboxRule,Corporate admin IP redacted,InvoicesArchive,Remove forwarding rule,Success,Containment action
+2026-11-04T08:34:15Z,Finance Manager,Security Administrator,Set-Mailbox,Corporate admin IP redacted,Finance Manager,Clear ForwardingSmtpAddress,Success,Containment action
+2026-11-04T08:35:06Z,Finance Manager,Security Administrator,Revoke-Sessions,Corporate admin IP redacted,Finance Manager,Revoke active sessions,Success,Containment action
+2026-11-04T08:38:27Z,Finance Manager,Security Administrator,Reset-Password,Corporate admin IP redacted,Finance Manager,Force password reset,Success,Containment action
