@@ -36,6 +36,7 @@ I have hands-on blue-team capability across Microsoft Sentinel, KQL, Sysmon, Win
 | [PCAP Investigation for SOC Analysts](./06-pcap-investigation-for-soc-analysts/) | PCAP triage, DNS/HTTP/TCP analysis, IOC extraction and SOC escalation | Wireshark, tshark, TCP/IP, DNS, HTTP |
 | [Entra ID Password Spray Investigation](./07IdentityPasswordSprayInvestigation/) | Identity alert triage, multiple account authentication failures and MFA investigation | Python, Entra ID, KQL |
 | [Scheduled Task Persistence Investigation](./08ScheduledTaskPersistenceReview/) | Windows scheduled task registration, process correlation and outbound activity | Sysmon, Windows Security, Python, KQL |
+| [Cloud Account Compromise Investigation](./09CloudAccountCompromiseInvestigation/) | Entra ID risky sign-in, mailbox forwarding, tenant scoping and containment | Microsoft Sentinel, Entra ID, Microsoft 365 Audit, Python, KQL |
 
 ### Investigation Progression
 
@@ -57,7 +58,7 @@ This progression demonstrates how packet-level evidence, endpoint events and SIE
 
 | Area | Technologies / Skills |
 |---|---|
-| Security Operations | Microsoft Sentinel, Microsoft Defender, SIEM/EDR, IDS/IPS, alert triage, incident investigation, phishing triage, SOC documentation, MITRE ATT&CK |
+| Security Operations | Microsoft Sentinel, Microsoft Defender, Entra ID, Microsoft 365 audit logs, SIEM/EDR, IDS/IPS, alert triage, incident investigation, identity investigation, phishing triage, SOC documentation, MITRE ATT&CK |
 | Detection & Analysis | KQL, Sysmon, Windows Event Logs, Elastic/Kibana, log correlation, packet analysis, IOC analysis, threat hunting, detection logic |
 | Network Security | FortiGate, VMware SD-WAN, Wireshark, TCP/IP, DNS, DHCP, VPN, LAN/WAN, routing and switching |
 | Systems & Identity | Windows 10/11, Linux, Active Directory, Microsoft 365, MFA, RBAC, endpoint support |
@@ -123,6 +124,7 @@ These roles built practical experience in troubleshooting, systems use, device h
 I have hands-on capability in:
 
 - Microsoft Sentinel and KQL
+- Entra ID sign-in investigation and Microsoft 365 audit analysis
 - Security monitoring, alert triage and incident investigation
 - Windows endpoint telemetry and Sysmon
 - Elastic/Kibana log analysis
