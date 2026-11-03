@@ -5,65 +5,65 @@ BASE = Path(__file__).resolve().parent
 EVIDENCE = BASE / "evidence"
 
 def load_csv(name):
-    with (EVIDENCE / name).open(newline="", encoding="utf-8") as handle:
+    with (EVIDENCE / name).open(newline="", encoding="utf8") as handle:
         return list(csv.DictReader(handle))
 
 signins = load_csv("signins.csv")
 office = load_csv("office_activity.csv")
 
-source_ip = "203.0.113.44"
-affected_user = "finance.manager@lab.example"
-forward_target = "archive.notice@example.net"
+affected_user = "Finance Manager"
+suspicious_source = "Public IP redacted"
+forwarding_value = "external mailbox redacted"
 
-source_events = [r for r in signins if r["ip_address"] == source_ip]
-successful_source = [r for r in source_events if r["status"] == "Success"]
-targeted_users = sorted({r["user"] for r in source_events})
+source_events = [row for row in signins if row["source"] == suspicious_source]
+successful_source = [row for row in source_events if row["status"] == "Success"]
+targeted_users = sorted({row["user"] for row in source_events})
 
-mail_events = [
-    r for r in office
-    if r["user"] == affected_user and forward_target in r["parameters"]
+forwarding_events = [
+    row for row in office
+    if row["user"] == affected_user and forwarding_value in row["parameters"]
 ]
 
 containment = [
-    r for r in office
-    if r["actor"] == "security.admin@lab.example"
+    row for row in office
+    if row["actor"] == "Security Administrator"
 ]
 
-print("SOC LAB 009 evidence review")
+print("SOC CASE 009 EVIDENCE REVIEW")
 print()
-print(f"Sign-in records reviewed: {len(signins)}")
+print(f"Sign in records reviewed: {len(signins)}")
 print(f"Microsoft 365 audit records reviewed: {len(office)}")
-print(f"Events from suspicious IP: {len(source_events)}")
-print(f"Successful sign-ins from suspicious IP: {len(successful_source)}")
-print(f"Accounts targeted from suspicious IP: {len(targeted_users)}")
-print(f"Forwarding-related events on affected mailbox: {len(mail_events)}")
+print(f"Events from suspicious source: {len(source_events)}")
+print(f"Successful sign ins from suspicious source: {len(successful_source)}")
+print(f"Accounts targeted from suspicious source: {len(targeted_users)}")
+print(f"Forwarding related events on affected mailbox: {len(forwarding_events)}")
 print(f"Containment actions recorded: {len(containment)}")
 print()
-print("Accounts observed from suspicious IP")
+print("Accounts observed from suspicious source")
 for user in targeted_users:
-    attempts = [r for r in source_events if r["user"] == user]
-    successes = [r for r in attempts if r["status"] == "Success"]
-    print(f"{user}: attempts={len(attempts)}, successes={len(successes)}")
+    attempts = [row for row in source_events if row["user"] == user]
+    successes = [row for row in attempts if row["status"] == "Success"]
+    print(f"{user}: attempts {len(attempts)}, successes {len(successes)}")
 print()
 print("Correlation checks")
-print("Successful abnormal sign-in:", any(
-    r["user"] == affected_user
-    and r["ip_address"] == source_ip
-    and r["status"] == "Success"
-    for r in signins
+print("Successful abnormal sign in:", any(
+    row["user"] == affected_user
+    and row["source"] == suspicious_source
+    and row["status"] == "Success"
+    for row in signins
 ))
 print("External inbox rule created:", any(
-    r["operation"] == "New-InboxRule"
-    and r["user"] == affected_user
-    and forward_target in r["parameters"]
-    for r in office
+    row["operation"] == "New-InboxRule"
+    and row["user"] == affected_user
+    and forwarding_value in row["parameters"]
+    for row in office
 ))
 print("Mailbox forwarding configured:", any(
-    r["operation"] == "Set-Mailbox"
-    and r["user"] == affected_user
-    and forward_target in r["parameters"]
-    for r in office
+    row["operation"] == "Set-Mailbox"
+    and row["user"] == affected_user
+    and forwarding_value in row["parameters"]
+    for row in office
 ))
-print("Inbox rule removed:", any(r["operation"] == "Remove-InboxRule" for r in containment))
-print("Sessions revoked:", any(r["operation"] == "Revoke-Sessions" for r in containment))
-print("Password reset:", any(r["operation"] == "Reset-Password" for r in containment))
+print("Inbox rule removed:", any(row["operation"] == "Remove-InboxRule" for row in containment))
+print("Sessions revoked:", any(row["operation"] == "Revoke-Sessions" for row in containment))
+print("Password reset:", any(row["operation"] == "Reset-Password" for row in containment))
