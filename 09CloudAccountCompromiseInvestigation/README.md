@@ -203,5 +203,3 @@ I did not record confirmed data loss because I did not have evidence showing whi
 [Python correlation script](./analysis.py)  
 [Analysis output](./evidence/analysis.txt)  
 [SOC incident report](./incident_report.md)
-
-> Public portfolio note: company identifiers, public IP addresses and external email addresses have been removed. This case was completed in a controlled SOC environment using representative enterprise telemetry.
