@@ -1,0 +1,22 @@
+SOC LAB 009 evidence review
+
+Sign-in records reviewed: 8
+Microsoft 365 audit records reviewed: 6
+Events from suspicious IP: 5
+Successful sign-ins from suspicious IP: 1
+Accounts targeted from suspicious IP: 3
+Forwarding-related events on affected mailbox: 2
+Containment actions recorded: 4
+
+Accounts observed from suspicious IP
+ap.manager@lab.example: attempts=1, successes=0
+finance.manager@lab.example: attempts=3, successes=1
+payroll@lab.example: attempts=1, successes=0
+
+Correlation checks
+Successful abnormal sign-in: True
+External inbox rule created: True
+Mailbox forwarding configured: True
+Inbox rule removed: True
+Sessions revoked: True
+Password reset: True
