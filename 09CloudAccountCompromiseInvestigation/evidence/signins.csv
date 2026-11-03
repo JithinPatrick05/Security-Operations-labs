@@ -1,9 +1,9 @@
-timestamp_utc,user,ip_address,location,device_id,client_app,status,mfa_result,risk_level,notes
-2026-11-04T07:58:12Z,finance.manager@lab.example,198.51.100.24,Sydney AU,FINLT07,Browser,Success,MFA satisfied,none,Known user device and normal location
-2026-11-04T08:05:41Z,finance.manager@lab.example,198.51.100.24,Sydney AU,FINLT07,Browser,Success,MFA satisfied,none,Last normal sign in before alert
-2026-11-04T08:18:33Z,finance.manager@lab.example,203.0.113.44,Amsterdam NL,,Browser,Failure,Password failure,high,New location and no registered device
-2026-11-04T08:19:11Z,finance.manager@lab.example,203.0.113.44,Amsterdam NL,,Browser,Failure,MFA denied,high,Second abnormal attempt
-2026-11-04T08:21:02Z,finance.manager@lab.example,203.0.113.44,Amsterdam NL,,Browser,Success,MFA satisfied,high,Successful sign in from new location and unknown device
-2026-11-04T08:22:18Z,ap.manager@lab.example,203.0.113.44,Amsterdam NL,,Browser,Failure,Password failure,medium,Same IP attempted second finance account
-2026-11-04T08:23:05Z,payroll@lab.example,203.0.113.44,Amsterdam NL,,Browser,Failure,Password failure,medium,Same IP attempted third finance account
-2026-11-04T08:44:52Z,finance.manager@lab.example,198.51.100.24,Sydney AU,FINLT07,Browser,Success,MFA satisfied,none,Post containment validation from known device
+timestamp_utc,user,source,location,device_id,client_app,status,mfa_result,risk_level,notes
+2026-11-04T07:58:12Z,Finance Manager,Corporate IP redacted,Sydney AU,FINLT07,Browser,Success,MFA satisfied,none,Known user device and normal location
+2026-11-04T08:05:41Z,Finance Manager,Corporate IP redacted,Sydney AU,FINLT07,Browser,Success,MFA satisfied,none,Last normal sign in before alert
+2026-11-04T08:18:33Z,Finance Manager,Public IP redacted,Amsterdam NL,,Browser,Failure,Password failure,high,New location and no recognised device
+2026-11-04T08:19:11Z,Finance Manager,Public IP redacted,Amsterdam NL,,Browser,Failure,MFA denied,high,Second abnormal attempt
+2026-11-04T08:21:02Z,Finance Manager,Public IP redacted,Amsterdam NL,,Browser,Success,MFA satisfied,high,Successful sign in from new location and unknown device
+2026-11-04T08:22:18Z,AP Manager,Public IP redacted,Amsterdam NL,,Browser,Failure,Password failure,medium,Same source attempted second finance account
+2026-11-04T08:23:05Z,Payroll,Public IP redacted,Amsterdam NL,,Browser,Failure,Password failure,medium,Same source attempted third finance account
+2026-11-04T08:44:52Z,Finance Manager,Corporate IP redacted,Sydney AU,FINLT07,Browser,Success,MFA satisfied,none,Post containment validation from known device
