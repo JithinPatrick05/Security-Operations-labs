@@ -1,57 +1,65 @@
-# SOC Incident Report | SOC LAB 009
+# SOC Incident Report | Case 009
 
 ## Summary
 
-A high-risk Entra ID sign-in to `finance.manager@lab.example` was followed by unauthorised external mailbox forwarding.
+I investigated a high risk Entra ID sign in involving a finance mailbox.
 
-The account normally authenticated from Sydney on `FINLT07`. A successful sign-in from `203.0.113.44` in Amsterdam occurred sixteen minutes after the last known-good Sydney sign-in. Within minutes, the same source IP created an inbox forwarding rule and configured mailbox-level forwarding to `archive.notice@example.net`.
+The user normally authenticated from Sydney on `FINLT07`. A successful Amsterdam sign in occurred sixteen minutes after the last known Sydney session. Within minutes, the same source created an inbox forwarding rule and configured mailbox forwarding to an external recipient.
+
+The company domain, public IP addresses and external mailbox address have been removed from this public portfolio copy.
 
 ## Classification
 
 **Incident type:** Cloud account compromise  
 **Severity:** High  
 **Confidence:** High  
-**Affected user:** finance.manager@lab.example  
-**Suspicious IP:** 203.0.113.44  
-**External destination:** archive.notice@example.net
+**Affected user:** Finance Manager  
+**Known device:** FINLT07  
+**Suspicious source:** Public IP redacted  
+**External forwarding destination:** Redacted
 
 ## Confirmed findings
 
-- Known-good Sydney sign-ins were present before the alert.
-- The suspicious IP generated failed attempts before one successful sign-in.
-- The successful overseas sign-in had no recognised device ID and was marked high risk.
-- The same source IP created an external inbox forwarding rule.
-- The same source IP configured mailbox-level forwarding to the same address.
-- The source IP also attempted two other finance-related accounts, but neither successfully authenticated.
-- The forwarding mechanisms were removed.
-- Active sessions were revoked.
-- The password was reset.
-- A later sign-in from the known Sydney device was successful.
+1. I confirmed normal Sydney sign in activity before the alert.
+2. I found two failed Amsterdam attempts before one successful authentication.
+3. The successful Amsterdam session had no recognised device ID and was marked high risk.
+4. The same source created an external inbox forwarding rule.
+5. The same source configured mailbox forwarding to the same external destination.
+6. The source attempted two additional finance accounts but did not authenticate successfully to either one.
+7. I removed both forwarding mechanisms.
+8. I revoked the user's active sessions.
+9. I completed a password reset.
+10. I validated a later sign in from the known Sydney device.
 
 ## Assessment
 
-The location change, device mismatch, successful high-risk sign-in and immediate mailbox forwarding activity support confirmed unauthorised account use.
+The timing, location change, device mismatch and mailbox audit activity support confirmed unauthorised account use.
 
-The available evidence does not identify the original access method, so I did not attribute the incident to password theft, token theft or MFA fatigue without supporting telemetry.
+I did not attribute the initial access method because the evidence did not prove whether the session resulted from a stolen password, token theft, social engineering or another method.
+
+I also did not record confirmed data loss because message trace evidence was outside the dataset reviewed for this case.
 
 ## MITRE ATT&CK
 
-- T1078 Valid Accounts
-- T1114.003 Email Forwarding Rule
+**T1078 Valid Accounts**
 
-## Containment
+**T1114.003 Email Forwarding Rule**
+
+## Containment completed
 
 1. Removed the suspicious inbox rule.
-2. Cleared mailbox-level forwarding.
+2. Cleared mailbox forwarding.
 3. Revoked active sessions.
 4. Forced a password reset.
-5. Validated reauthentication from the known user device.
-6. Searched for the suspicious IP and external forwarding address across the available tenant evidence.
+5. Validated a new session from the user's known device.
+6. Searched the available tenant evidence for the same source and forwarding destination.
 
 ## Handover
 
-The active compromise was contained. Follow-up should focus on message trace, MFA registration review, endpoint review, and additional tenant-wide hunting.
+The active compromise was contained.
 
-Two other finance accounts were targeted by the same source IP but did not show successful authentication in the evidence reviewed.
+I left message trace, MFA registration review and endpoint review as follow up actions.
 
-> Portfolio note: controlled SOC lab using representative enterprise telemetry.
+The same source attempted the AP Manager and Payroll accounts. Neither account showed a successful authentication in the evidence I reviewed.
+
+> Public portfolio note: sensitive identifiers have been removed. This case was completed in a controlled SOC environment using representative enterprise telemetry.
