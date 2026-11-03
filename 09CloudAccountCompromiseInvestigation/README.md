@@ -15,8 +15,6 @@ The user had a successful Entra ID sign in from Amsterdam shortly after a normal
 
 A few minutes after that session became successful, the same source created a new inbox rule called `InvoicesArchive` and configured mailbox forwarding to an external address.
 
-For the public version of this case I removed the company domain, public IP addresses and external mailbox address. The sequence, timestamps, event types and investigation logic are preserved.
-
 I did not close the alert based on the impossible travel style signal alone. I checked the normal sign in pattern, the source activity, the mailbox audit trail, other accounts touched by the same source, and the recovery activity before making a decision.
 
 ## Investigation
