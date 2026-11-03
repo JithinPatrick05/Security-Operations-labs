@@ -1,0 +1,53 @@
+// SOC LAB 009 | Microsoft Sentinel / Log Analytics
+
+// Affected user sign-in timeline
+SigninLogs
+| where TimeGenerated between (datetime(2026-11-04 07:45:00) .. datetime(2026-11-04 09:00:00))
+| where UserPrincipalName =~ "finance.manager@lab.example"
+| project TimeGenerated, UserPrincipalName, IPAddress, Location, AppDisplayName,
+          ClientAppUsed, DeviceDetail, ResultType, ResultDescription,
+          RiskLevelDuringSignIn, ConditionalAccessStatus
+| order by TimeGenerated asc
+
+// Scope the suspicious IP across users
+SigninLogs
+| where TimeGenerated > ago(7d)
+| where IPAddress == "203.0.113.44"
+| summarize Attempts=count(),
+            Successful=countif(ResultType == 0),
+            FirstSeen=min(TimeGenerated),
+            LastSeen=max(TimeGenerated)
+  by UserPrincipalName, IPAddress
+| order by Attempts desc
+
+// High-risk successful sign-ins
+SigninLogs
+| where TimeGenerated > ago(7d)
+| where ResultType == 0
+| where RiskLevelDuringSignIn in~ ("high", "medium")
+| project TimeGenerated, UserPrincipalName, IPAddress, Location, DeviceDetail,
+          RiskLevelDuringSignIn, ConditionalAccessStatus
+| order by TimeGenerated desc
+
+// Mailbox forwarding and inbox rule activity
+OfficeActivity
+| where TimeGenerated between (datetime(2026-11-04 07:45:00) .. datetime(2026-11-04 09:00:00))
+| where UserId =~ "finance.manager@lab.example"
+| where Operation in~ ("New-InboxRule", "Set-InboxRule", "Remove-InboxRule", "Set-Mailbox")
+| project TimeGenerated, UserId, Operation, ClientIP, Parameters, ResultStatus
+| order by TimeGenerated asc
+
+// Search for the external forwarding destination
+OfficeActivity
+| where TimeGenerated > ago(30d)
+| where Parameters has "archive.notice@example.net"
+| project TimeGenerated, UserId, Operation, ClientIP, Parameters, ResultStatus
+| order by TimeGenerated desc
+
+// Tenant-wide review of external forwarding activity
+OfficeActivity
+| where TimeGenerated > ago(30d)
+| where Operation in~ ("New-InboxRule", "Set-InboxRule", "Set-Mailbox")
+| where Parameters has_any ("ForwardTo", "RedirectTo", "ForwardingSmtpAddress")
+| project TimeGenerated, UserId, Operation, ClientIP, Parameters, ResultStatus
+| order by TimeGenerated desc
