@@ -1,5 +1,4 @@
 // Case 009
-// Public portfolio copy
 // User domain, public IP and external forwarding address are intentionally redacted
 
 let AffectedUserPrefix = "finance.manager";
