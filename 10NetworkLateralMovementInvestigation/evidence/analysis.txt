@@ -1,0 +1,25 @@
+CASE 010 CORRELATION RESULTS
+
+Sentinel severity: High
+Sentinel SMB attempts: 34 SMB connection attempts in 58 seconds
+Windows Security records reviewed: 4
+Sysmon records reviewed: 9
+Defender records reviewed: 13
+Packet summary rows reviewed: 16
+
+Correlation checks
+Successful privileged network logon from FINWS042: True
+Special privileges assigned: True
+WinTelemetry service installed: True
+telemetrysvc.exe created: True
+telemetrysvc.exe launched by services.exe: True
+SMB2 session setup success observed: True
+SMB2 packet records in target conversation: 6
+Outbound TLS connections from telemetrysvc.exe: 4
+
+Target scope
+Source host: FINWS042
+Target host: FILESRV02
+Account: CORP\svc_backup
+Confirmed service: WinTelemetry
+Confirmed file: C:\ProgramData\WinTelemetry\telemetrysvc.exe
