@@ -1,0 +1,37 @@
+Wireshark filters used during Case 010
+
+Source workstation traffic
+
+ip.src == 10.40.8.27
+
+New SMB connection attempts from FINWS042
+
+ip.src == 10.40.8.27 && tcp.dstport == 445 && tcp.flags.syn == 1 && tcp.flags.ack == 0
+
+FINWS042 and FILESRV02 conversation
+
+ip.addr == 10.40.8.27 && ip.addr == 10.40.20.18 && tcp.port == 445
+
+SMB2 activity
+
+smb2 && ip.addr == 10.40.8.27 && ip.addr == 10.40.20.18
+
+Outbound traffic from FILESRV02
+
+ip.src == 10.40.20.18 && tcp.dstport == 443
+
+TCP connection timing review
+
+tcp.stream eq 17
+
+What stood out
+
+34 new TCP 445 connection attempts appeared within 58 seconds.
+
+The targets were spread across the server subnet rather than a normal user file share pattern.
+
+FILESRV02 completed an SMB2 session.
+
+After the host activity began, FILESRV02 generated short encrypted outbound sessions roughly sixty seconds apart.
+
+The packet capture supported the network timeline but did not expose the account password or decrypted TLS content.
