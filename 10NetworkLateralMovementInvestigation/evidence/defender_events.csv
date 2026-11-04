@@ -1,0 +1,14 @@
+timestamp_utc,device,event_type,account,process,parent_process,remote_ip,remote_port,action,details
+2026-11-04T10:11:02Z,FINWS042,DeviceProcessEvents,CORP\jlee,powershell.exe,explorer.exe,,,ProcessCreated,PowerShell started in interactive user session
+2026-11-04T10:13:50Z,FINWS042,DeviceProcessEvents,CORP\jlee,net.exe,powershell.exe,,,ProcessCreated,Network utility started before SMB burst
+2026-11-04T10:14:02Z,FINWS042,DeviceNetworkEvents,CORP\jlee,net.exe,powershell.exe,10.40.20.11,445,ConnectionAttempt,First observed SMB connection attempt in burst
+2026-11-04T10:14:39Z,FINWS042,DeviceNetworkEvents,CORP\jlee,net.exe,powershell.exe,10.40.20.18,445,ConnectionSuccess,Successful SMB connection to FILESRV02
+2026-11-04T10:14:50Z,FILESRV02,DeviceProcessEvents,SYSTEM,telemetrysvc.exe,services.exe,,,ProcessCreated,Unsigned service executable started as SYSTEM
+2026-11-04T10:14:52Z,FILESRV02,DeviceProcessEvents,SYSTEM,cmd.exe,telemetrysvc.exe,,,ProcessCreated,Child shell created by service executable
+2026-11-04T10:14:53Z,FILESRV02,DeviceProcessEvents,SYSTEM,whoami.exe,cmd.exe,,,ProcessCreated,Account discovery
+2026-11-04T10:14:54Z,FILESRV02,DeviceProcessEvents,SYSTEM,hostname.exe,cmd.exe,,,ProcessCreated,Host discovery
+2026-11-04T10:15:08Z,FILESRV02,DeviceNetworkEvents,SYSTEM,telemetrysvc.exe,services.exe,External destination redacted,443,ConnectionSuccess,Outbound TLS session
+2026-11-04T10:16:09Z,FILESRV02,DeviceNetworkEvents,SYSTEM,telemetrysvc.exe,services.exe,External destination redacted,443,ConnectionSuccess,Repeated outbound TLS session
+2026-11-04T10:26:31Z,FINWS042,ResponseAction,Security Operations,,,,,IsolateDevice,Source workstation isolated
+2026-11-04T10:26:48Z,FILESRV02,ResponseAction,Security Operations,,,,,IsolateDevice,Target server isolated
+2026-11-04T10:27:02Z,FILESRV02,ResponseAction,Security Operations,telemetrysvc.exe,,,BlockFile,File hash blocked in Defender
