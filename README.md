@@ -37,6 +37,7 @@ I have hands-on blue-team capability across Microsoft Sentinel, KQL, Sysmon, Win
 | [Entra ID Password Spray Investigation](./07IdentityPasswordSprayInvestigation/) | Identity alert triage, multiple account authentication failures and MFA investigation | Python, Entra ID, KQL |
 | [Scheduled Task Persistence Investigation](./08ScheduledTaskPersistenceReview/) | Windows scheduled task registration, process correlation and outbound activity | Sysmon, Windows Security, Python, KQL |
 | [Cloud Account Compromise Investigation](./09CloudAccountCompromiseInvestigation/) | Entra ID risky sign in, mailbox forwarding, tenant scoping and containment | Microsoft Sentinel, Entra ID, Microsoft 365 Audit, Python, KQL |
+| [Network Intrusion and Lateral Movement Investigation](./10NetworkLateralMovementInvestigation/) | SMB reconnaissance, privileged lateral movement, remote service execution and network containment | Wireshark, Microsoft Sentinel, Defender for Endpoint, Sysmon, Windows Security, KQL |
 
 ### Investigation Progression
 
@@ -59,7 +60,7 @@ This progression demonstrates how packet-level evidence, endpoint events and SIE
 | Area | Technologies / Skills |
 |---|---|
 | Security Operations | Microsoft Sentinel, Microsoft Defender, Entra ID, Microsoft 365 audit logs, SIEM/EDR, IDS/IPS, alert triage, incident investigation, identity investigation, phishing triage, SOC documentation, MITRE ATT&CK |
-| Detection & Analysis | KQL, Sysmon, Windows Event Logs, Elastic/Kibana, log correlation, packet analysis, IOC analysis, threat hunting, detection logic |
+| Detection & Analysis | KQL, Sysmon, Windows Event Logs, Elastic/Kibana, log correlation, packet analysis, lateral movement investigation, IOC analysis, threat hunting, detection logic |
 | Network Security | FortiGate, VMware SD-WAN, Wireshark, TCP/IP, DNS, DHCP, VPN, LAN/WAN, routing and switching |
 | Systems & Identity | Windows 10/11, Linux, Active Directory, Microsoft 365, MFA, RBAC, endpoint support |
 | IT Operations | ServiceNow ITSM, P1/P2 incident coordination, SLA management, RCA, escalation, technical documentation |
