@@ -1,0 +1,73 @@
+// Case 010
+// Sentinel and Defender hunting queries
+
+// Find the SMB connection burst from the source workstation
+DeviceNetworkEvents
+| where Timestamp between (datetime(2026-11-04 10:00:00) .. datetime(2026-11-04 10:30:00))
+| where DeviceName =~ "FINWS042"
+| where RemotePort == 445
+| summarize Connections=count(), Targets=dcount(RemoteIP), FirstSeen=min(Timestamp), LastSeen=max(Timestamp) by DeviceName
+| order by Connections desc
+
+// Show each SMB target contacted by FINWS042
+DeviceNetworkEvents
+| where Timestamp between (datetime(2026-11-04 10:00:00) .. datetime(2026-11-04 10:30:00))
+| where DeviceName =~ "FINWS042"
+| where RemotePort == 445
+| project Timestamp, DeviceName, LocalIP, RemoteIP, RemotePort, ActionType, InitiatingProcessFileName
+| order by Timestamp asc
+
+// Review successful network logons on FILESRV02
+SecurityEvent
+| where TimeGenerated between (datetime(2026-11-04 10:00:00) .. datetime(2026-11-04 10:30:00))
+| where Computer has "FILESRV02"
+| where EventID == 4624
+| where LogonType == 3
+| project TimeGenerated, Computer, Account, LogonType, IpAddress, WorkstationName, AuthenticationPackageName
+| order by TimeGenerated asc
+
+// Review privileged logon events for the service account
+SecurityEvent
+| where TimeGenerated between (datetime(2026-11-04 10:00:00) .. datetime(2026-11-04 10:30:00))
+| where Computer has "FILESRV02"
+| where EventID == 4672
+| where Account endswith "svc_backup"
+| project TimeGenerated, Computer, Account, Activity
+| order by TimeGenerated asc
+
+// Hunt for the service executable
+DeviceFileEvents
+| where Timestamp > ago(7d)
+| where FileName =~ "telemetrysvc.exe"
+| project Timestamp, DeviceName, FileName, FolderPath, SHA256, InitiatingProcessFileName, InitiatingProcessAccountName
+| order by Timestamp asc
+
+// Follow the service process tree
+DeviceProcessEvents
+| where Timestamp between (datetime(2026-11-04 10:00:00) .. datetime(2026-11-04 10:30:00))
+| where DeviceName =~ "FILESRV02"
+| where FileName in~ ("telemetrysvc.exe", "cmd.exe", "whoami.exe", "hostname.exe")
+| project Timestamp, DeviceName, AccountName, FileName, FolderPath, ProcessCommandLine, InitiatingProcessFileName, SHA256
+| order by Timestamp asc
+
+// Search for the hash across all endpoints
+DeviceProcessEvents
+| where Timestamp > ago(30d)
+| where SHA256 =~ "9ff8f6e4c5d9e3769abc51fc3138eda5fda3ff32aee6c66a010c218c9660614e"
+| summarize FirstSeen=min(Timestamp), LastSeen=max(Timestamp), Hits=count() by DeviceName, FileName, FolderPath, SHA256
+
+// Review outbound connections from the service process
+DeviceNetworkEvents
+| where Timestamp between (datetime(2026-11-04 10:00:00) .. datetime(2026-11-04 10:45:00))
+| where DeviceName =~ "FILESRV02"
+| where InitiatingProcessFileName =~ "telemetrysvc.exe"
+| project Timestamp, DeviceName, RemoteIP, RemotePort, Protocol, ActionType, InitiatingProcessFileName, InitiatingProcessSHA256
+| order by Timestamp asc
+
+// Scope svc_backup authentication across the environment
+SecurityEvent
+| where TimeGenerated > ago(7d)
+| where EventID == 4624
+| where Account endswith "svc_backup"
+| summarize Logons=count(), SourceIPs=make_set(IpAddress), Workstations=make_set(WorkstationName), FirstSeen=min(TimeGenerated), LastSeen=max(TimeGenerated) by Computer, Account, LogonType
+| order by Logons desc
