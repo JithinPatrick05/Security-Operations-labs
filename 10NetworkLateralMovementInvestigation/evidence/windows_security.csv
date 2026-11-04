@@ -1,0 +1,5 @@
+timestamp_utc,host,event_id,account,logon_type,source_ip,workstation,authentication_package,details
+2026-11-04T10:14:41Z,FILESRV02,4624,CORP\svc_backup,3,10.40.8.27,FINWS042,NTLM,Successful network logon from finance workstation
+2026-11-04T10:14:43Z,FILESRV02,4672,CORP\svc_backup,,10.40.8.27,FINWS042,,Special privileges assigned to new logon
+2026-11-04T10:14:49Z,FILESRV02,7045,SYSTEM,,,,,Service WinTelemetry installed from C:\ProgramData\WinTelemetry\telemetrysvc.exe
+2026-11-04T10:27:18Z,FILESRV02,7036,SYSTEM,,,,,WinTelemetry entered stopped state during containment
