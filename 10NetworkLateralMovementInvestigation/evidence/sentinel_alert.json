@@ -1,0 +1,23 @@
+{
+  "incident_id": "INC010",
+  "incident_title": "Anomalous SMB activity followed by privileged remote execution",
+  "severity": "High",
+  "status": "Closed",
+  "created_time_utc": "2026-11-04T10:15:12Z",
+  "first_activity_utc": "2026-11-04T10:14:02Z",
+  "last_activity_utc": "2026-11-04T10:18:10Z",
+  "source_host": "FINWS042",
+  "source_ip": "10.40.8.27",
+  "target_host": "FILESRV02",
+  "target_ip": "10.40.20.18",
+  "account": "CORP\\svc_backup",
+  "network_observation": "34 SMB connection attempts in 58 seconds",
+  "correlated_events": [
+    "Successful network logon",
+    "Special privileges assigned",
+    "New executable created",
+    "New Windows service installed",
+    "SYSTEM process execution",
+    "Repeated outbound TLS connections"
+  ]
+}
