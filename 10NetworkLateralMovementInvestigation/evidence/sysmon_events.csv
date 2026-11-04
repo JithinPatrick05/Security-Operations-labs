@@ -1,0 +1,10 @@
+timestamp_utc,host,event_id,user,image,parent_image,target,sha256,destination,destination_port,details
+2026-11-04T10:14:46Z,FILESRV02,11,SYSTEM,C:\Windows\System32\services.exe,,C:\ProgramData\WinTelemetry\telemetrysvc.exe,9ff8f6e4c5d9e3769abc51fc3138eda5fda3ff32aee6c66a010c218c9660614e,,,File creation recorded
+2026-11-04T10:14:50Z,FILESRV02,1,SYSTEM,C:\ProgramData\WinTelemetry\telemetrysvc.exe,C:\Windows\System32\services.exe,,9ff8f6e4c5d9e3769abc51fc3138eda5fda3ff32aee6c66a010c218c9660614e,,,Service executable launched as SYSTEM
+2026-11-04T10:14:52Z,FILESRV02,1,SYSTEM,C:\Windows\System32\cmd.exe,C:\ProgramData\WinTelemetry\telemetrysvc.exe,,,,,Command shell created by service process
+2026-11-04T10:14:53Z,FILESRV02,1,SYSTEM,C:\Windows\System32\whoami.exe,C:\Windows\System32\cmd.exe,,,,,Account discovery
+2026-11-04T10:14:54Z,FILESRV02,1,SYSTEM,C:\Windows\System32\hostname.exe,C:\Windows\System32\cmd.exe,,,,,Host discovery
+2026-11-04T10:15:08Z,FILESRV02,3,SYSTEM,C:\ProgramData\WinTelemetry\telemetrysvc.exe,C:\Windows\System32\services.exe,,9ff8f6e4c5d9e3769abc51fc3138eda5fda3ff32aee6c66a010c218c9660614e,External destination redacted,443,Outbound TLS connection
+2026-11-04T10:16:09Z,FILESRV02,3,SYSTEM,C:\ProgramData\WinTelemetry\telemetrysvc.exe,C:\Windows\System32\services.exe,,9ff8f6e4c5d9e3769abc51fc3138eda5fda3ff32aee6c66a010c218c9660614e,External destination redacted,443,Second outbound TLS connection
+2026-11-04T10:17:09Z,FILESRV02,3,SYSTEM,C:\ProgramData\WinTelemetry\telemetrysvc.exe,C:\Windows\System32\services.exe,,9ff8f6e4c5d9e3769abc51fc3138eda5fda3ff32aee6c66a010c218c9660614e,External destination redacted,443,Third outbound TLS connection
+2026-11-04T10:18:10Z,FILESRV02,3,SYSTEM,C:\ProgramData\WinTelemetry\telemetrysvc.exe,C:\Windows\System32\services.exe,,9ff8f6e4c5d9e3769abc51fc3138eda5fda3ff32aee6c66a010c218c9660614e,External destination redacted,443,Fourth outbound TLS connection
