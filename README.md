@@ -38,6 +38,7 @@ I have hands-on blue-team capability across Microsoft Sentinel, KQL, Sysmon, Win
 | [Scheduled Task Persistence Investigation](./08ScheduledTaskPersistenceReview/) | Windows scheduled task registration, process correlation and outbound activity | Sysmon, Windows Security, Python, KQL |
 | [Cloud Account Compromise Investigation](./09CloudAccountCompromiseInvestigation/) | Entra ID risky sign in, mailbox forwarding, tenant scoping and containment | Microsoft Sentinel, Entra ID, Microsoft 365 Audit, Python, KQL |
 | [Network Intrusion and Lateral Movement Investigation](./10NetworkLateralMovementInvestigation/) | SMB reconnaissance, privileged lateral movement, remote service execution and network containment | Wireshark, Microsoft Sentinel, Defender for Endpoint, Sysmon, Windows Security, KQL |
+| [Email Authentication and Link Triage](./11EmailAuthenticationAndLinkTriage/) | Header alignment, disguised Microsoft 365 link, offline email investigation | Python, SPF/DKIM/DMARC review, Defender XDR hunting KQL |
 
 ### Investigation Progression
 
