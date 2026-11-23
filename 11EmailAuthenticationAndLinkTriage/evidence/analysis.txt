@@ -1,0 +1,17 @@
+EMAIL-011 | Offline email header and URL review
+Case message SHA-256: f9b86a0f7b655c23a5a7063ba22b15621af48ef5010ee2de36ea94502eb83982
+Subject: Action required: Q4 supplier register shared with you
+From: Microsoft 365 Documents <notice@file-access.test>
+Reply-To: Document Support <assistance@file-access.test>
+Return-Path: <bounce@message-relay.test>
+Message-ID: <20261123031822.48291@message-relay.test>
+SPF (recorded): pass | domain: message-relay.test | aligned: False
+DKIM (recorded): pass | domain: message-relay.test | aligned: False
+DMARC (recorded): fail | header.from: file-access.test
+HTML links inspected: 1
+Link 1 visible: https://login.microsoftonline.com/
+Link 1 actual: https://review.file-access.test/verify?doc=Q4-SUPPLIER-REG
+Link 1 destination differs from display: True
+Attachments: 0
+Assessment: suspected credential-phishing lure; no proof of clicks or credential submission.
+Scope: local case file only. Recorded authentication results are not independently validated.
