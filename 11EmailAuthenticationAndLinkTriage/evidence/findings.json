@@ -1,0 +1,37 @@
+{
+  "case": "EMAIL-011",
+  "message_sha256": "f9b86a0f7b655c23a5a7063ba22b15621af48ef5010ee2de36ea94502eb83982",
+  "subject": "Action required: Q4 supplier register shared with you",
+  "message_id": "<20261123031822.48291@message-relay.test>",
+  "from": "Microsoft 365 Documents <notice@file-access.test>",
+  "reply_to": "Document Support <assistance@file-access.test>",
+  "return_path": "<bounce@message-relay.test>",
+  "received": "from relay.message-relay.test (relay.message-relay.test [192.0.2.57]) by mx.northbridge.test with ESMTPS id 6B18F2 for <finance@northbridge.test>; Mon, 23 Nov 2026 03:18:26 +0000",
+  "authentication_as_recorded_in_message": {
+    "spf": "pass",
+    "dkim": "pass",
+    "dmarc": "fail",
+    "visible_from_domain": "file-access.test",
+    "envelope_domain": "message-relay.test",
+    "reply_to_domain": "file-access.test",
+    "spf_authenticated_domain": "message-relay.test",
+    "dkim_signing_domain_reported": "message-relay.test",
+    "spf_aligned_to_from": false,
+    "dkim_aligned_to_from": false
+  },
+  "html_links": [
+    {
+      "displayed_text": "https://login.microsoftonline.com/",
+      "actual_href": "https://review.file-access.test/verify?doc=Q4-SUPPLIER-REG",
+      "displayed_host": "login.microsoftonline.com",
+      "destination_host": "review.file-access.test",
+      "host_mismatch": true
+    }
+  ],
+  "attachments": [],
+  "limits": [
+    "Authentication-Results is a header claim in the case message, not an independent verification of SPF/DKIM/DMARC.",
+    "No live URL visit or sandbox execution was performed.",
+    "No mail trace, click, sign-in or endpoint logs were available for this case."
+  ]
+}
