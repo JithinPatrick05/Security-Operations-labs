@@ -1,0 +1,32 @@
+// Investigation 11 | Microsoft Defender XDR advanced hunting
+// Prepared hunt queries for an authorised tenant. Not executed for this offline case.
+// EmailEvents and EmailUrlInfo need Microsoft Defender for Office 365 data.
+
+// Step 1: Look for the visible From domain and the message's public InternetMessageId.
+EmailEvents
+| where Timestamp > ago(7d)
+| where SenderFromDomain =~ "file-access.test"
+    or SenderMailFromDomain =~ "message-relay.test"
+    or InternetMessageId == "<20261123031822.48291@message-relay.test>"
+| project Timestamp, NetworkMessageId, InternetMessageId, RecipientEmailAddress,
+          SenderFromAddress, SenderMailFromAddress, SenderFromDomain,
+          SenderMailFromDomain, AuthenticationDetails, DeliveryAction,
+          DeliveryLocation, ThreatTypes, Subject
+| order by Timestamp desc
+
+// Step 2: Scope messages containing the actual link destination.
+EmailUrlInfo
+| where Timestamp > ago(7d)
+| where Url has "review.file-access.test"
+| project Timestamp, NetworkMessageId, Url, UrlLocation
+
+// Step 3: Check click exposure separately. No click events are in this repository.
+UrlClickEvents
+| where Timestamp > ago(7d)
+| where Url has "review.file-access.test"
+| project Timestamp, AccountUpn, Url, ActionType, IsClickedThrough,
+          NetworkMessageId, IPAddress, ThreatTypes
+| order by Timestamp desc
+
+// In a real case, pivot on NetworkMessageId and recipient to correlate delivery
+// and the extracted URL. Do not infer that a click means credentials were entered.
