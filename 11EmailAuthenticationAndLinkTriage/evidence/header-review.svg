@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="760" viewBox="0 0 1120 760">
+<rect width="1120" height="760" fill="#0b1220"/>
+<text x="54" y="65" fill="#f0f6ff" font-size="31" font-family="Arial,sans-serif" font-weight="bold">EMAIL-011 · Offline header and URL review</text>
+<text x="54" y="97" fill="#92a6bf" font-size="16" font-family="Arial,sans-serif">23 November 2026   •   Home lab   •   Derived from analysis.py output</text>
+<rect x="45" y="128" width="1030" height="240" rx="15" fill="#14243a" stroke="#2b4862"/>
+<text x="70" y="170" fill="#e6f0ff" font-family="Arial,sans-serif" font-size="23" font-weight="bold">Sender authentication recorded in the case email</text>
+<text x="72" y="220" fill="#a8c0d7" font-family="monospace" font-size="18">From domain</text><text x="342" y="220" fill="#f0f6ff" font-family="monospace" font-size="18">file-access.test</text>
+<text x="72" y="263" fill="#a8c0d7" font-family="monospace" font-size="18">SPF pass / DKIM pass</text><text x="342" y="263" fill="#f0f6ff" font-family="monospace" font-size="18">message-relay.test</text>
+<text x="72" y="308" fill="#a8c0d7" font-family="monospace" font-size="18">Domain alignment</text><text x="342" y="308" fill="#ffc18b" font-family="monospace" font-size="18">FALSE for both</text>
+<text x="72" y="346" fill="#a8c0d7" font-family="monospace" font-size="18">DMARC recorded</text><text x="342" y="346" fill="#ffc18b" font-family="monospace" font-size="18">FAIL</text>
+<rect x="45" y="391" width="1030" height="238" rx="15" fill="#14243a" stroke="#2b4862"/>
+<text x="70" y="432" fill="#e6f0ff" font-family="Arial,sans-serif" font-size="23" font-weight="bold">HTML link destination check</text>
+<text x="72" y="474" fill="#a8c0d7" font-family="Arial,sans-serif" font-size="17">Text shown to recipient</text>
+<text x="72" y="505" fill="#b4dcff" font-family="monospace" font-size="19">https://login.microsoftonline.com/</text>
+<text x="72" y="543" fill="#a8c0d7" font-family="Arial,sans-serif" font-size="17">Actual href in message HTML</text>
+<text x="72" y="574" fill="#ffc18b" font-family="monospace" font-size="17">https://review.file-access.test/verify?doc=Q4-SUPPLIER-REG</text>
+<text x="72" y="607" fill="#ffcf7d" font-family="Arial,sans-serif" font-size="17">Host mismatch: TRUE   •   Attachments: 0</text>
+<text x="55" y="671" fill="#e6f0ff" font-family="Arial,sans-serif" font-size="19">Assessment: Suspicious phishing-style link; user interaction not established.</text>
+<text x="55" y="713" fill="#92a6bf" font-family="Arial,sans-serif" font-size="14">Case-file header values are not independently authenticated. No live link or tenant connection was used.</text>
+</svg>
